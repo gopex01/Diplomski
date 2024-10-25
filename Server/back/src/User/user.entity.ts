@@ -1,3 +1,4 @@
+import { Role } from "src/Auth/roles.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('User')
@@ -38,4 +39,7 @@ export class UserEntity
     
     @Column({default:false})
     Verified:boolean;
+
+    @Column()
+    rola:Role;
 }

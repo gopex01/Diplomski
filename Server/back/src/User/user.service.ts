@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { UserDto } from "./user.dto";
 import * as bcrypt from "bcrypt";
 import * as nodemailer from 'nodemailer';
+import { Role } from "src/Auth/roles.enum";
 @Injectable()
 export class UserService{
     private transporter;//objekat koji sluzi za slanje mailova
@@ -38,7 +39,8 @@ export class UserService{
             JMBG:newUser.jmbg,
             DateOfBirth:newUser.dateofbirth,
             City:newUser.city,
-            Country:newUser.country
+            Country:newUser.country,
+            rola:Role.User
 
         });
         try{
