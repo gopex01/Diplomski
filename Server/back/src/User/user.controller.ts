@@ -9,7 +9,7 @@ export class UserController{
         private readonly userService:UserService){}
 
     @Post('addUser')
-    async addUser(@Body()newUser:UserDto)
+    async addUser(@Body() newUser:UserDto)
     {
         return await this.userService.addUser(newUser);
     }
