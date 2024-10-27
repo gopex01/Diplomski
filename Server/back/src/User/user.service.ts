@@ -30,8 +30,7 @@ export class UserService{
     async addUser(newUser:UserDto):Promise<string>{
         const hashedPass=await bcrypt.hash(newUser.password,10);
         const nUser:UserEntity=this.userRepository.create({
-            Name:newUser.name,
-            Surname:newUser.surname,
+            NameAndSurname:newUser.nameAndsurname,
             Email:newUser.email,
             Username:newUser.username,
             Password:hashedPass,
@@ -39,7 +38,6 @@ export class UserService{
             JMBG:newUser.jmbg,
             DateOfBirth:newUser.dateofbirth,
             City:newUser.city,
-            Country:newUser.country,
             rola:Role.User
 
         });

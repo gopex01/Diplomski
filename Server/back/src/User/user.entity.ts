@@ -7,11 +7,8 @@ export class UserEntity
     @PrimaryGeneratedColumn()
     Id:number;
 
-    @Column({length:20})
-    Name:string;
-
-    @Column({length:20})
-    Surname:string;
+    @Column({length:40})
+    NameAndSurname:string;
 
     @Column({unique:true})
     Email:string;
@@ -33,9 +30,6 @@ export class UserEntity
 
     @Column()
     City:string;
-    
-    @Column()
-    Country:string;
     
     @Column({default:false})
     Verified:boolean;

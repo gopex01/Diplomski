@@ -43,47 +43,50 @@
                 <div class="center-wrap">
                   <div class="section text-center">
                     <h4 class="mb-3 pb-3">Sign Up</h4>
-                    <div class="form-group">
-                      <input [(ngModel)]="valueName" type="text" class="form-style" placeholder="Name">
-                      <i class="input-icon uil uil-user"></i>
-                    </div>
-                    <div class="form-group">
-                      <input [(ngModel)]="valueSurname" type="text" class="form-style" placeholder="Surname">
-                      <i class="input-icon uil uil-user"></i>
-                    </div>				
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueEmail" type="email" class="form-style" placeholder="Email">
-                      <i class="input-icon uil uil-at"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueUsernameReg" type="text" class="form-style" placeholder="Username">
-                      <i class="input-icon uil uil-user"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valuePasswordReg" type="password" class="form-style" placeholder="Password">
-                      <i class="input-icon uil uil-lock-alt"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valuePhoneNumber" type="text" class="form-style" placeholder="PhoneNumber">
-                      <i class="input-icon uil uil-phone"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueDate" type="text" class="form-style" placeholder="Date of Birth">
-                      <i class="input-icon uil uil-schedule"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueJMBG" type="text" class="form-style" placeholder="JMBG">
-                      <i class="input-icon uil uil-schedule"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueCity" type="text" class="form-style" placeholder="City">
-                      <i class="input-icon uil uil-schedule"></i>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input [(ngModel)]="valueCountry" type="text" class="form-style" placeholder="Country">
-                      <i class="input-icon uil uil-schedule"></i>
-                    </div>
-                    <a class="btn mt-4" (click)="register()">Register</a>
+                    <!--<div class="cont">-->
+                      <div class="form-groupV2">
+                        <input [(ngModel)]="valueNameAndSurname" type="text" class="form-styleV2" placeholder="Name&Surname">
+                        <i class="input-iconV2 uil uil-user"></i>
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valueEmail" type="email" class="form-styleV2" placeholder="Email">
+                        <i class="input-iconV2 uil uil-at"></i>
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valueUsernameReg" type="text" class="form-styleV2" placeholder="Username">
+                        <i class="input-iconV2 uil uil-user"></i>
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valuePasswordReg" type="password" class="form-styleV2" placeholder="Password">
+                        <i class="input-iconV2 uil uil-lock-alt"></i>
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valuePhoneNumber" type="text" class="form-styleV2" placeholder="PhoneNumber">
+                        <i class="input-iconV2 uil uil-phone"></i>
+                      </div>
+                      <!--<div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valueDate" type="text" class="form-styleV2" placeholder="Date of Birth">
+                        <i class="input-iconV2 uil uil-schedule"></i>
+                      </div>-->
+                      <div class="form-groupV2 mt-2">
+                        <mat-form-field appearance="fill" style="height: 65px; font-size: 14px; width: 100%;">
+                          <mat-label style="font-size: 14px;">Select date of birth</mat-label>
+                          <input matInput [matDatepicker]="picker" [(ngModel)]="valueDate" style="font-size: 14px; padding: 0 12px;">
+                          <mat-datepicker-toggle matIconSuffix [for]="picker" style="font-size: 16px;"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valueJMBG" type="text" class="form-styleV2" placeholder="JMBG">
+                        <i class="input-iconV2 uil uil-schedule"></i>
+                      </div>
+                      <div class="form-groupV2 mt-2">
+                        <input [(ngModel)]="valueCity" type="text" class="form-styleV2" placeholder="City">
+                        <i class="input-iconV2 uil uil-schedule"></i>
+                      </div>	
+                   <!-- </div>-->
+                    <a class="btn2 mt-4" (click)="register()">Register</a>
                       </div>
                     </div>
                   </div>

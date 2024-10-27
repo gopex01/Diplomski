@@ -9,7 +9,11 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { loginReducer } from './reducers/login.reducer';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +25,14 @@ import { loginReducer } from './reducers/login.reducer';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
     StoreModule.forRoot({
       'auth':loginReducer
     },{}),
+    BrowserAnimationsModule,
     //StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     /*StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

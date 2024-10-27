@@ -2,12 +2,8 @@ import { IsString, IsEmail, IsDate, Length } from 'class-validator';
 export class UserDto{
 
     @IsString()
-    @Length(1,20)
-    name:string;
-
-    @IsString()
-    @Length(1,20)
-    surname:string;
+    @Length(1,40)
+    nameAndsurname:string;
     
     @IsEmail()
     email:string;
@@ -32,8 +28,6 @@ export class UserDto{
     @IsString()
     city:string;
 
-    @IsString()
-    country:string;
 
 
 }

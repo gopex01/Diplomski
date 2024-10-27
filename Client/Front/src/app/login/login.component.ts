@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,8 +11,7 @@ export class LoginComponent implements OnInit{
 
   valueUsername:string;
   valuePassword:string;
-  valueName:string;
-  valueSurname:string;
+  valueNameAndSurname:string;
   valueEmail:string;
   valueUsernameReg:string;
   valuePasswordReg:string;
@@ -20,18 +20,20 @@ export class LoginComponent implements OnInit{
   valueJMBG:string;
   tokenUser:string|null;
   valueCity:string;
-  valueCountry:string;
+  picker:Date|null;
+
 
   ngOnInit(): void {
     
   }
-  constructor(private loginService:LoginService) {
+  constructor(private loginService:LoginService,
+    private userService:UserService
+  ) {
 
     this.valueUsername="";
     this.valuePassword="";
     this.tokenUser="";
-    this.valueName="";
-    this.valueSurname="";
+    this.valueNameAndSurname="";
     this.valueEmail="";
     this.valueUsernameReg="";
     this.valuePasswordReg="";
@@ -39,7 +41,7 @@ export class LoginComponent implements OnInit{
     this.valueDate="";
     this.valueJMBG="";
     this.valueCity="";
-    this.valueCountry="";
+    this.picker=null;
   }
 
   login()
@@ -48,7 +50,7 @@ export class LoginComponent implements OnInit{
   }
   register()
   {
-
+    console.log(this.valueDate);
   }
 
 }
