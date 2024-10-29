@@ -5,4 +5,5 @@ export class SingUp{
 
 export class UserApi{
     
+    public static readonly getUserByUsername='http://localhost:3000/User/getUserByUsername/';
 }

@@ -1,0 +1,118 @@
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #ffeba7;
+  background-color: #1f2029;
+  overflow: auto;
+  height: 100vh;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #12141d 100%);
+  display: flex;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a:hover {
+  text-decoration: none;
+}
+.container {
+  display: flex;
+  width: 100%;
+}
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: #ffeba7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+.logo {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  color: #ffeba7;
+}
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.menu-item {
+  color: #ffeba7;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+}
+.menu-item:hover {
+  background-color: #555;
+  color: #c4c3ca;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2b2e38;
+  padding: 15px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.username {
+  font-weight: bold;
+  color: #ffeba7;
+}
+.logout-btn {
+  padding: 10px 20px;
+  background-color: #ffeba7;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.logout-btn:hover {
+  background-color: #c4c3ca;
+  color: #1f2029;
+}
+.profile {
+  padding: 20px;
+  color: #ffeba7;
+}
+.profile span {
+  font-weight: bold; /* Boldovanje teksta */
+  font-size: 1.2em;  /* Povećanje veličine fonta */
+  margin-bottom: 10px; /* Razmak između redova */
+}
+
+.profile p {
+  font-size: 1em; /* Veličina fonta za paragraf */
+  margin: 0; /* Uklanjanje podrazumevanog margina */
+  font-weight: normal;
+}
+
+.profileData{
+ 
+    background-color: rgba(255, 255, 255, 0.1); /* Svetlija boja pozadine sa prozirnošću */
+    border-radius: 10px; /* Zaobljene ivice */
+    padding: 20px; /* Unutrašnji razmak */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Senka za 3D efekat */
+    margin-top: 20px; /* Razmak od elemenata iznad */
+
+  
+}
+

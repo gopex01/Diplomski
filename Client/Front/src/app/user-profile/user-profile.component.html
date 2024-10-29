@@ -1,2 +1,47 @@
-<p>user-profile works!</p>
-<button (click)="klikni()">Klikni me</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Travel planning</div>
+      <nav class="menu">
+        <a  class="menu-item" (click)="showHomeSection()"><i class="fas fa-home"></i> Home</a>
+        <a class="menu-item" (click)="showProfileSection()"><i class="fas fa-user"></i> Profile</a>
+        <a  class="menu-item"><i class="fas fa-cog"></i> Settings</a>
+        <a class="menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <!-- Navbar -->
+      <header class="navbar">
+        <span class="username">Welcome, User</span>
+        <button class="logout-btn">Logout</button>
+      </header>
+
+      <!-- Profile content -->
+      <section class="profile">
+        <div *ngIf="profileSection" class="profileData">
+          <h1>User Profile</h1>
+          <span>Name And Surname:<p>{{(user$|async)?.NameAndSurname || " "}}</p></span>
+          <span>Email:<p>{{(user$|async)?.Email || " "}}</p></span>
+          <span>Username:<p>{{(user$|async)?.Username || " "}}</p></span>
+          <span>Phone Number:<p>{{(user$|async)?.PhoneNumber || " "}}</p></span>
+          <span>Date Of Birth:<p>{{(user$|async)?.DateOfBirth || " "}}</p></span>
+          <span>City:<p>{{(user$|async)?.City || " "}}</p></span>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

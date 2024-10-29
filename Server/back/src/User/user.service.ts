@@ -112,4 +112,68 @@ export class UserService{
             return null;
         }
     }
+
+    async changePassword(username:string,oldPass:string,newPass:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            const isMatchs=await bcrypt.compare(oldPass,user.Password);
+            if(isMatchs)
+            {
+                user.Password=newPass;
+                await this.userRepository.update(user.Id,user);
+                return "Success"
+
+            }
+            else{
+                return "Current password is inncorrect!"
+            }
+        }
+        else{
+            return "User not found!"
+        }
+    }
+
+    async changePhoneNumber(username:string,newPhoneNumber:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            user.PhoneNumber=newPhoneNumber;
+            await this.userRepository.update(user.Id,user);
+            return "Success"
+        }
+        else{
+            return "User not found"
+        }
+    }
+    
+    async changeCity(username:string,newCity:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            user.City=newCity;
+            await this.userRepository.update(user.Id,user);
+            return "Success"
+        }
+        else{
+            return "User not found"
+        }
+    }
+
+    async changeName(username:string,newNameAndSurname:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            user.NameAndSurname=newNameAndSurname;
+            await this.userRepository.update(user.Id,user);
+            return "Success"
+        }
+        else{
+            return "User not found"
+        }
+    }
 }
