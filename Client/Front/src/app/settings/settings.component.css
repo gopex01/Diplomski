@@ -1,0 +1,94 @@
+/* Osnovni stil za glavni kontejner */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    margin-top: 10px;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #12141d 100%);
+}
+
+/* Stil za sekcije */
+.section {
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Stil za naslove sekcija */
+h2 {
+    cursor: pointer;
+    font-size: 20px;
+    color: ivory;
+}
+
+/* Stil za strelicu */
+.arrow {
+    margin-left: 10px;
+}
+
+/* Stil za paragrafe */
+p {
+    font-size: 18px;
+    color: ivory;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Stil za dugmad "promeni" i "sačuvaj promene" */
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Stil za input polje */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Stil za sekciju deaktivacije */
+.deactivate {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Stil za dugme "sačuvaj promene" unutar moda */
+.save-changes-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.save-changes-btn:hover {
+    background-color: #218838;
+}
+
+h1 {
+    text-align: center;
+    color: ivory; /* Postavljamo boju naslova */
+}

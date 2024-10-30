@@ -6,6 +6,7 @@ import { UserDto } from "./user.dto";
 import * as bcrypt from "bcrypt";
 import * as nodemailer from 'nodemailer';
 import { Role } from "src/Auth/roles.enum";
+import { userSettingsDto } from "./user.Settings.Dto";
 @Injectable()
 export class UserService{
     private transporter;//objekat koji sluzi za slanje mailova
@@ -89,6 +90,72 @@ export class UserService{
         
         await this.transporter.sendMail(mailOptions);
     }
+    async sendMailForChangeEmail(username:string,email:string)
+    {
+        const verificationLink=`http://localhost:3000/User/verifyAccount/${username}`;
+        //const verificationLink = `https://6bb6-87-116-160-1.ngrok-free.app/User/verifyAccount/${username}`;//tunelovanje
+
+        const mailOptions = {
+            from: 'gopex2001@gmail.com',
+            to: email,
+            subject: 'Email Verification',
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; border-radius: 5px;">
+                    <h2 style="color: #333;">Email Verification</h2>
+                    <p style="color: #555;">You successfully change your email! Please verify your email address by clicking the link below:</p>
+                    <a href="${verificationLink}" style="display: inline-block; padding: 10px 15px; color: white; background-color: #28a745; text-decoration: none; border-radius: 5px;">Verify Email</a>
+                    <p style="color: #555; margin-top: 20px;">If you did not create an account, no further action is required.</p>
+                    <p style="color: #555;">Best regards,<br>Your Team</p>
+                </div>
+            `,
+        };
+        /*const mailOptions = {
+            from: 'gopex2001@gmail.com', // Vaša e-adresa
+            to: email,
+            subject: 'Verifikacija e-adrese',
+            text: `Kliknite na sledeći link da biste verifikovali svoju e-adresu: ${verificationLink}`
+          };*/
+        
+        await this.transporter.sendMail(mailOptions);
+    }
+    async generateRandomPassword(length: number = 10){
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+        let password = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        return password;
+    }
+    async sendMailForResetPassword(username:string,email:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            
+            const temporaryPassword = await this.generateRandomPassword(12);
+            const hashedPass=await bcrypt.hash(temporaryPassword,10);
+            user.Password=hashedPass;
+            await this.userRepository.update(user.Id,user);
+            const mailOptions = {
+                from: 'gopex2001@gmail.com',
+                to: email,
+                subject: 'Reset password',
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; border-radius: 5px;">
+                        <p style="color: #555; margin-top: 20px;">Your temporary password is.</p>
+                        <p>${temporaryPassword}</p>
+                        <p style="color: #555;">Best regards,<br>Your Team</p>
+                    </div>
+                `,
+            };
+            
+            await this.transporter.sendMail(mailOptions);
+        }
+        else{
+            return "User not found!";
+        }
+    }
   
     async verifyAccount(username:string)
     {
@@ -120,10 +187,11 @@ export class UserService{
         {
             const isMatchs=await bcrypt.compare(oldPass,user.Password);
             if(isMatchs)
-            {
+            {   const hashedNewPass = await bcrypt.hash(newPass, 10);
+                user.Password = hashedNewPass;
                 user.Password=newPass;
-                await this.userRepository.update(user.Id,user);
-                return "Success"
+                await this.userRepository.save(user);
+                return {message:"Success"}
 
             }
             else{
@@ -156,13 +224,40 @@ export class UserService{
         {
             user.City=newCity;
             await this.userRepository.update(user.Id,user);
-            return "Success"
+            return  {message:"Success"}
         }
         else{
             return "User not found"
         }
     }
 
+    async changeEmail(username:string,newEmail:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            user.Email=newEmail;
+            user.Verified=false;
+            await this.sendMailForChangeEmail(username,newEmail);
+            await this.userRepository.update(user.Id,user);
+            return {message:"Success"}
+        }
+        else{
+            return "User Not Found!"
+        }
+
+    }
+    async forgotPassword(username:string,email:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            await this.sendMailForResetPassword(username,email);
+        }
+        else{
+
+        }
+    }
     async changeName(username:string,newNameAndSurname:string)
     {
         const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
@@ -170,10 +265,40 @@ export class UserService{
         {
             user.NameAndSurname=newNameAndSurname;
             await this.userRepository.update(user.Id,user);
-            return "Success"
+            return {message:"Success"}
         }
         else{
             return "User not found"
+        }
+    }
+    async getDataForChange(username:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            let retObj:userSettingsDto={
+                NameAndSurname:user.NameAndSurname,
+                Password:user.Password,
+                PhoneNumber:user.PhoneNumber,
+                City:user.City,
+                Email:user.Email
+            }
+            return retObj;
+        }
+        else{
+            return "User Not Found!";
+        }
+    }
+    async deactivateAccount(username:string)
+    {
+        const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            await this.userRepository.delete(user);
+            return {message:"Success"}
+        }
+        else{
+            return "User not found";
         }
     }
 }

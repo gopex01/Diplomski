@@ -4,6 +4,7 @@ import { selectUsername } from '../selectors/login.selector';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +22,8 @@ export class UserProfileComponent implements OnInit{
     this.user$=this.userService.getUserByUsername();
   }
   constructor(private store:Store,
-    private userService:UserService
+    private userService:UserService,
+    private loginService:LoginService
   )
   {
     this.user$=new Observable<User>();
@@ -61,7 +63,7 @@ export class UserProfileComponent implements OnInit{
   }
   logout()
   {
-    
+    this.loginService.logout();
   }
 
 }

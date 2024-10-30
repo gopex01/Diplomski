@@ -115,4 +115,42 @@ a:hover {
 
   
 }
+/* Stilizacija za Navbar */
+.navbar {
+  display: flex;
+  justify-content: flex-end; /* Postavi elemente na desnu stranu */
+  align-items: center;
+  background-color: #2b2e38;
+  padding: 15px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+/* Stilizacija za korisničko ime */
+.username {
+  font-weight: bold;
+  color: #ffeba7;
+  font-size: 1.1em;
+  margin-right: auto; /* Pomeri na levu stranu */
+}
+
+/* Stilizacija za dugmad u navbaru */
+.navbar a {
+  color: #ffeba7; /* Svetlija boja teksta */
+  font-size: 1em;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #c4c3ca; /* Svetlija nijansa pri hover-u */
+}
+
+.navbar a i {
+  margin-right: 8px; /* Razmak između ikone i teksta */
+}
+
 

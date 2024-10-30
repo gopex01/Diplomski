@@ -26,7 +26,8 @@
       <!-- Navbar -->
       <header class="navbar">
         <span class="username">Welcome, User</span>
-        <button class="logout-btn">Logout</button>
+        <a [routerLink]="['/Settings']"><i class="fas fa-cog"></i>Settings</a>
+        <a (click)="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
       </header>
 
       <!-- Profile content -->

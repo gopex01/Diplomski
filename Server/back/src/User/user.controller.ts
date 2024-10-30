@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserDto } from "./user.dto";
 import { JwtAuthGuard } from "src/Auth/jwt-auth.guard";
@@ -62,5 +62,32 @@ export class UserController{
         return await this.userService.changeName(username,newName) ;
     }
 
+    @UseGuards(JwtAuthGuard,UserGuard)
+    @Get('getDataForChange/:username')
+    async getDataForChange(@Param('username') username:string)
+    {
+        return await this.userService.getDataForChange(username);
+    }
+
+    @UseGuards(JwtAuthGuard,UserGuard)
+    @Patch('changeEmail/:username/:newEmail')
+    async changeEmail(@Param('username') username:string,
+    @Param('newEmail') newEmail:string)
+    {
+        return await this.userService.changeEmail(username,newEmail);
+    }
+
+    @Post('forgotPassword/:username/:email')
+    async forgotPassword(@Param('username') username:string,
+    @Param('email') email:string)
+    {
+        return await this.userService.forgotPassword(username,email);
+    }
+    
+    @Delete('deactivateAccount/:username')
+    async deactivateAccount(@Param('username') username:string)
+    {
+        return await this.userService.deactivateAccount(username);
+    }
    
 }

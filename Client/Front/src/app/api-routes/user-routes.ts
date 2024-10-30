@@ -5,5 +5,11 @@ export class SingUp{
 
 export class UserApi{
     
-    public static readonly getUserByUsername='http://localhost:3000/User/getUserByUsername/';
+    public static readonly route='http://localhost:3000/User/';
+    public static readonly getUserByUsername=this.route+'getUserByUsername/';
+    public static readonly getDataForChange=this.route+'getDataForChange/';
+    public static readonly changeName=this.route+'changeName/';
+    public static readonly changePhone=this.route+'changePhoneNumber/';
+    public static readonly changeCity=this.route+'changeCity/';
+    public static readonly changeEmail=this.route+'changeEmail/';
 }
