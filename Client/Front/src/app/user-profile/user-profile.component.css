@@ -153,4 +153,19 @@ a:hover {
   margin-right: 8px; /* Razmak između ikone i teksta */
 }
 
+.profile-picture-container {
+  display: inline-block;
+  position: relative;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
+
+
 

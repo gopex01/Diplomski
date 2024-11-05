@@ -30,6 +30,9 @@ export class UserEntity
 
     @Column()
     City:string;
+
+    @Column({type:'bytea',nullable:true,default:null})
+    image?:Buffer|string;
     
     @Column({default:false})
     Verified:boolean;

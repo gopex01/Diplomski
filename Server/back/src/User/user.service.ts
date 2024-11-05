@@ -173,6 +173,7 @@ export class UserService{
         const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
         if(user)
         {
+            user.image=user.image.toString('base64');
             return user;
         }
         else{
@@ -299,6 +300,20 @@ export class UserService{
         }
         else{
             return "User not found";
+        }
+    }
+
+    async updateUserPhoto(username:string,imageBuffer:Buffer)
+    {
+        const user=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            user.image=imageBuffer;
+            await this.userRepository.save(user);
+            return "Profile photo updated successfully";
+        }
+        else{
+            return "User not found!";
         }
     }
 }

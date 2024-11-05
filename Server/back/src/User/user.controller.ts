@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserDto } from "./user.dto";
 import { JwtAuthGuard } from "src/Auth/jwt-auth.guard";
 import { UserGuard } from "src/Auth/user.role.guard";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @Controller('User')
 export class UserController{
@@ -84,10 +85,21 @@ export class UserController{
         return await this.userService.forgotPassword(username,email);
     }
     
+    @UseGuards(JwtAuthGuard,UserGuard)
     @Delete('deactivateAccount/:username')
     async deactivateAccount(@Param('username') username:string)
     {
         return await this.userService.deactivateAccount(username);
     }
-   
+
+   @Patch('updatePhoto/:username')
+   @UseInterceptors(FileInterceptor('file'))
+   async updatePhoto(@Param('username') username:string,@UploadedFile() file: Express.Multer.File)
+   {
+    if(!file)
+    {
+        throw new Error("No file uploaded");
+    }
+    return this.userService.updateUserPhoto(username,file.buffer);
+   }
 }

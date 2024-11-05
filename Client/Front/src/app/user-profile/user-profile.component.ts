@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUsername } from '../selectors/login.selector';
 import { Observable } from 'rxjs';
@@ -14,11 +14,12 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit{
 
+
   user$:Observable<any>;
   profileSection:Boolean;
   homeSection:Boolean;
   settingsSection:Boolean;
-
+  @ViewChild('fileInput') fileInput!: ElementRef;
   ngOnInit(): void {
     this.user$=this.userService.getUserByUsername();
   }
@@ -70,6 +71,22 @@ export class UserProfileComponent implements OnInit{
   search()
   {
     this.router.navigate(['/searchTravel']);
+  }
+  onFileSelected(event: Event)
+  {
+    const file=(event.target as HTMLInputElement).files![0];
+    if(file)
+    {
+      const formData=new FormData();
+      formData.append('file',file);
+
+      this.userService.updatePhoto(formData);
+      
+    }
+
+  }
+  onChangeProfilePicture() {
+    this.fileInput.nativeElement.click();
   }
 
 }

@@ -8,4 +8,5 @@ export interface User{
     JMBG:string;
     DateOfBirth:string;
     City:string;
+    Image:string;
 }

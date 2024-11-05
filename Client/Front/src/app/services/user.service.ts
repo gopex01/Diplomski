@@ -98,4 +98,15 @@ export class UserService {
       }
     });
   }
+  updatePhoto(file:FormData)
+  {
+    return this.store.select(selectUsername).subscribe((username)=>{
+      this.httpClient.patch(UserApi.updatePhoto+username,file)
+      .subscribe(response=>{
+        console.log("uspesno promenjan");
+      }),(error:any)=>{
+        console.log("greska update photo")
+      }
+    });
+  }
 }

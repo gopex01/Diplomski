@@ -34,14 +34,33 @@
       <section class="profile">
         <div *ngIf="profileSection" class="profileData">
           <h1>User Profile</h1>
-          <span>Name And Surname:<p>{{(user$|async)?.NameAndSurname || " "}}</p></span>
-          <span>Email:<p>{{(user$|async)?.Email || " "}}</p></span>
-          <span>Username:<p>{{(user$|async)?.Username || " "}}</p></span>
-          <span>Phone Number:<p>{{(user$|async)?.PhoneNumber || " "}}</p></span>
-          <span>Date Of Birth:<p>{{(user$|async)?.DateOfBirth || " "}}</p></span>
-          <span>City:<p>{{(user$|async)?.City || " "}}</p></span>
+          
+          <!-- Slika korisnika -->
+          <div class="profile-picture-container">
+            <img
+              [src]="(user$ | async)?.image ? 'data:image/png;base64,' + (user$ | async)?.image : '../assets/images/person.png'"
+              alt="User Profile Picture"
+              class="profile-picture"
+              (click)="onChangeProfilePicture()"
+            />
+            <input
+              type="file"
+              #fileInput
+              accept="image/*"
+              style="display: none;"
+              (change)="onFileSelected($event)"
+            />
+          </div>
+      
+          <span>Name And Surname:<p>{{(user$ | async)?.NameAndSurname || " "}}</p></span>
+          <span>Email:<p>{{(user$ | async)?.Email || " "}}</p></span>
+          <span>Username:<p>{{(user$ | async)?.Username || " "}}</p></span>
+          <span>Phone Number:<p>{{(user$ | async)?.PhoneNumber || " "}}</p></span>
+          <span>Date Of Birth:<p>{{(user$ | async)?.DateOfBirth || " "}}</p></span>
+          <span>City:<p>{{(user$ | async)?.City || " "}}</p></span>
         </div>
       </section>
+      
     </main>
   </div>
 </body>
