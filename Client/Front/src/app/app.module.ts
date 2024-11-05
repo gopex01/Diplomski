@@ -22,6 +22,9 @@ import { UserSettingsEffects } from './effects/user.settings.effects';
 import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogChangeEmailComponent } from './dialog-change-email/dialog-change-email.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MapComponent } from './map/map.component';
+import { SearchTravelComponent } from './search-travel/search-travel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,9 @@ import { DialogChangeEmailComponent } from './dialog-change-email/dialog-change-
     UserProfileComponent,
     SettingsComponent,
     DialogErrorComponent,
-    DialogChangeEmailComponent
+    DialogChangeEmailComponent,
+    MapComponent,
+    SearchTravelComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,7 @@ import { DialogChangeEmailComponent } from './dialog-change-email/dialog-change-
     HttpClientModule,
     MatDatepickerModule,
     MatDialogModule,
+    GoogleMapsModule,
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,

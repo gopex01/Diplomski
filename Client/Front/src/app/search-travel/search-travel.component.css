@@ -1,0 +1,53 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1f2029;
+    color: #ffeba7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Postavlja visinu na 100% visine prozora */
+    margin: 0; /* Uklanja podrazumevani margin */
+  }
+  
+  .search-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+  }
+  
+  .search-form h2 {
+    margin-bottom: 15px;
+    color: #ffeba7;
+  }
+  
+  .search-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .search-form input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .search-form button {
+    padding: 10px;
+    background-color: #ffeba7;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .search-form button:hover {
+    background-color: #c4c3ca;
+  }
+  

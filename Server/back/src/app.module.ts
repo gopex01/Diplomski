@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './User/user.module';
 import { UserEntity } from './User/user.entity';
 import { AuthModule } from './Auth/auth.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TravelModule } from './Travel/travel.module';
 
 
 @Module({
@@ -21,7 +23,9 @@ import { AuthModule } from './Auth/auth.module';
       synchronize:true
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    TravelModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/Diplomski'),
   ],
   controllers: [AppController],
   providers: [AppService],

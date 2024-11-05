@@ -13,3 +13,7 @@ export class UserApi{
     public static readonly changeCity=this.route+'changeCity/';
     public static readonly changeEmail=this.route+'changeEmail/';
 }
+export class TravelApi{
+    public static readonly route='http://localhost:3000/Travel/';
+    public static readonly createTravel=this.route+'createTravel/';
+}

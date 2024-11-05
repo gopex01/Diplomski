@@ -1,0 +1,14 @@
+#map {
+    height: 90%; /* ili bilo koja visina koja ti odgovara */
+    width: 100%;
+  }
+.dugme{
+  padding: 10px;
+    background-color: #ffeba7;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  

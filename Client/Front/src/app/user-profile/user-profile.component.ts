@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +24,8 @@ export class UserProfileComponent implements OnInit{
   }
   constructor(private store:Store,
     private userService:UserService,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private router:Router
   )
   {
     this.user$=new Observable<User>();
@@ -64,6 +66,10 @@ export class UserProfileComponent implements OnInit{
   logout()
   {
     this.loginService.logout();
+  }
+  search()
+  {
+    this.router.navigate(['/searchTravel']);
   }
 
 }
