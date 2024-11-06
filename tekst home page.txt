@@ -1,0 +1,11 @@
+Dobrodošli u našu aplikaciju za planiranje putovanja – vašeg idealnog saputnika za bezbrižno putovanje! Planiranje puta nikada nije bilo lakše zahvaljujući integraciji sa Google Maps, koja vam pruža detaljan prikaz ruta do odredišta i graničnih prelaza, zajedno sa informacijama o saobraćaju i mogućnošću gledanja uživo video snimaka prelaza. Tako možete da dobijete tačan uvid u realnu situaciju na putu pre nego što krenete.
+
+Naša aplikacija nije samo vodič od tačke A do tačke B – ona je sveobuhvatan plan puta koji omogućava:
+
+Unapred planirane pauze tokom vožnje kako biste ostali odmorni i bezbedni.
+Preporuke za prenoćišta i restorane duž rute.
+Informacije o pumpama i električnim punjačima za održavanje vozila.
+Detaljan prikaz dužine puta i procene vremena putovanja.
+Bez obzira da li planirate kratki izlet ili dugačko putovanje, naša aplikacija pruža sve potrebne alate za temeljno planiranje svake etape puta, pomažući vam da putujete sigurno i informisano.
+
+Iskoristite ovu platformu da biste unapred isplanirali i prilagodili svoje putovanje prema vašim potrebama i preferencijama!

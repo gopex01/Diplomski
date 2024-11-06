@@ -17,7 +17,7 @@
         <a  class="menu-item" (click)="showHomeSection()"><i class="fas fa-home"></i> Home</a>
         <a class="menu-item" (click)="showProfileSection()"><i class="fas fa-user"></i> Profile</a>
         <a  class="menu-item" (click)="search()"><i class="fas fa-cog"></i> New Travel</a>
-        <a class="menu-item"><i class="fas fa-sign-out-alt"></i> My travels</a>
+        <a class="menu-item" ><i class="fas fa-sign-out-alt"></i> My travels</a>
       </nav>
     </aside>
 
@@ -38,7 +38,7 @@
           <!-- Slika korisnika -->
           <div class="profile-picture-container">
             <img
-              [src]="(user$ | async)?.image ? 'data:image/png;base64,' + (user$ | async)?.image : '../assets/images/person.png'"
+              [src]="imageUrl ? 'data:image/png;base64,'+imageUrl : '../assets/images/person.png'"
               alt="User Profile Picture"
               class="profile-picture"
               (click)="onChangeProfilePicture()"

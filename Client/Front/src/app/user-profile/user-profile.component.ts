@@ -6,6 +6,8 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { getimageURL, setimageURL } from '../actions/image.action';
+import { selectImageURL } from '../selectors/image.selector';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,9 +21,23 @@ export class UserProfileComponent implements OnInit{
   profileSection:Boolean;
   homeSection:Boolean;
   settingsSection:Boolean;
+  imageUrl:string;
   @ViewChild('fileInput') fileInput!: ElementRef;
   ngOnInit(): void {
     this.user$=this.userService.getUserByUsername();
+    this.user$.subscribe((user:any)=>{
+      this.store.dispatch(setimageURL({imageURL:user.image}))
+    });
+    this.store.select(selectImageURL).subscribe((url)=>{
+      this.imageUrl=url;
+    })
+    /*this.store.select(selectUsername).subscribe((username)=>{
+      this.store.dispatch(getimageURL({username}));
+    });
+    this.store.select(selectImageURL).subscribe((image)=>{
+      this.imageUrl=image;
+    })*/
+    
   }
   constructor(private store:Store,
     private userService:UserService,
@@ -33,6 +49,7 @@ export class UserProfileComponent implements OnInit{
     this.profileSection=false;
     this.homeSection=false;
     this.settingsSection=false;
+    this.imageUrl='';
   }
   klikni()
   {
@@ -88,5 +105,6 @@ export class UserProfileComponent implements OnInit{
   onChangeProfilePicture() {
     this.fileInput.nativeElement.click();
   }
+
 
 }

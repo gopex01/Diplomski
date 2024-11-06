@@ -39,7 +39,8 @@ export class UserService{
             JMBG:newUser.jmbg,
             DateOfBirth:newUser.dateofbirth,
             City:newUser.city,
-            rola:Role.User
+            rola:Role.User,
+            image:null
 
         });
         try{
@@ -173,7 +174,9 @@ export class UserService{
         const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
         if(user)
         {
+            if(user.image){
             user.image=user.image.toString('base64');
+            }
             return user;
         }
         else{
@@ -310,7 +313,19 @@ export class UserService{
         {
             user.image=imageBuffer;
             await this.userRepository.save(user);
-            return "Profile photo updated successfully";
+            return user.image.toString('base64');
+        }
+        else{
+            return "User not found!";
+        }
+    }
+
+    async getImageURL(username:string)
+    {
+        const user=await this.userRepository.findOne({where:{Username:username}});
+        if(user)
+        {
+            return user.image.toString('base64');
         }
         else{
             return "User not found!";

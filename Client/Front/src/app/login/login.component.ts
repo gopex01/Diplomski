@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
   valueUsernameReg:string;
   valuePasswordReg:string;
   valuePhoneNumber:string;
-  valueDate:string;
+  valueDate!:Date;
   valueJMBG:string;
   tokenUser:string|null;
   valueCity:string;
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit{
     this.valueUsernameReg="";
     this.valuePasswordReg="";
     this.valuePhoneNumber="";
-    this.valueDate="";
+    //this.valueDate="";
     this.valueJMBG="";
     this.valueCity="";
     this.picker=null;
@@ -50,7 +50,9 @@ export class LoginComponent implements OnInit{
   }
   register()
   {
-    console.log(this.valueDate);
+    const dateObject = new Date('Wed Nov 20 2024 00:00:00 GMT+0100 (Central European Standard Time)');
+const formattedDate = dateObject.toISOString().substring(0, 10);
+    this.loginService.register(this.valueNameAndSurname,this.valueEmail,this.valueUsernameReg,this.valuePasswordReg,this.valuePhoneNumber,this.valueJMBG,formattedDate,this.valueCity);
   }
 
 }

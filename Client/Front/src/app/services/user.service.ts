@@ -8,6 +8,7 @@ import { User } from '../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 import { DialogChangeEmailComponent } from '../dialog-change-email/dialog-change-email.component';
+import { setimageURL } from '../actions/image.action';
 @Injectable({
   providedIn: 'root'
 })
@@ -101,12 +102,23 @@ export class UserService {
   updatePhoto(file:FormData)
   {
     return this.store.select(selectUsername).subscribe((username)=>{
-      this.httpClient.patch(UserApi.updatePhoto+username,file)
+      this.httpClient.patch(UserApi.updatePhoto+username,file, { responseType: 'text' })
       .subscribe(response=>{
-        console.log("uspesno promenjan");
+        this.store.dispatch(setimageURL({imageURL:response}))
       }),(error:any)=>{
         console.log("greska update photo")
       }
     });
+  }
+
+  getImageURL()
+  {
+    return this.store.select(selectUsername)
+    .pipe(
+      switchMap(username=>
+        this.httpClient.get(UserApi.getImageURL+username,{headers:this.headers})
+        .pipe(imageURL=>imageURL || null)
+      ),
+    );
   }
 }

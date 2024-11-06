@@ -18,7 +18,7 @@ export class UserController{
     }
 
     @Get('verifyAccount/:username')
-    async verifyAccount(username:string)
+    async verifyAccount(@Param('username') username:string)
     {
         return await this.userService.verifyAccount(username);
     }
@@ -101,5 +101,11 @@ export class UserController{
         throw new Error("No file uploaded");
     }
     return this.userService.updateUserPhoto(username,file.buffer);
+   }
+
+   @Get('getImageURL/:username')
+   async getImageURL(@Param('username') username:string)
+   {
+    return this.userService.getImageURL(username);
    }
 }

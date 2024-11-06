@@ -25,6 +25,9 @@ import { DialogChangeEmailComponent } from './dialog-change-email/dialog-change-
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './map/map.component';
 import { SearchTravelComponent } from './search-travel/search-travel.component';
+import { ImageEffects } from './effects/image.effects';
+import { imageReducer } from './reducers/image.reducer';
+import { DialogSuccessRegistrationComponent } from './dialog-success-registration/dialog-success-registration.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +38,7 @@ import { SearchTravelComponent } from './search-travel/search-travel.component';
     DialogChangeEmailComponent,
     MapComponent,
     SearchTravelComponent,
+    DialogSuccessRegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,8 @@ import { SearchTravelComponent } from './search-travel/search-travel.component';
     MatFormFieldModule,
     StoreModule.forRoot({
       'auth':loginReducer,
-      'settings':userSettingsReducer
+      'settings':userSettingsReducer,
+      'image':imageReducer
     },{}),
     BrowserAnimationsModule,
     EffectsModule.forRoot([]),
@@ -62,7 +67,7 @@ import { SearchTravelComponent } from './search-travel/search-travel.component';
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       connectOutsideZone: true // If set to true, the connection is established outside the Angular zone for better performance
     }),
-    EffectsModule.forRoot(UserSettingsEffects),
+    EffectsModule.forRoot(UserSettingsEffects,ImageEffects),
   ],
   providers: [],
   bootstrap: [AppComponent]
