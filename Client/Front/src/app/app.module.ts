@@ -28,6 +28,14 @@ import { SearchTravelComponent } from './search-travel/search-travel.component';
 import { ImageEffects } from './effects/image.effects';
 import { imageReducer } from './reducers/image.reducer';
 import { DialogSuccessRegistrationComponent } from './dialog-success-registration/dialog-success-registration.component';
+import { DialogLoginErrorComponent } from './dialog-login-error/dialog-login-error.component';
+import { DialogSuccessChangedComponent } from './dialog-success-changed/dialog-success-changed.component';
+import { DialogErrorReasonComponent } from './dialog-error-reason/dialog-error-reason.component';
+import { DialogForgotPasswordComponent } from './dialog-forgot-password/dialog-forgot-password.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { RestAreasComponent } from './rest-areas/rest-areas.component';
+import { ListRestAreasComponent } from './list-rest-areas/list-rest-areas.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +47,14 @@ import { DialogSuccessRegistrationComponent } from './dialog-success-registratio
     MapComponent,
     SearchTravelComponent,
     DialogSuccessRegistrationComponent,
+    DialogLoginErrorComponent,
+    DialogSuccessChangedComponent,
+    DialogErrorReasonComponent,
+    DialogForgotPasswordComponent,
+    HomePageComponent,
+    AboutUsComponent,
+    RestAreasComponent,
+    ListRestAreasComponent,
   ],
   imports: [
     BrowserModule,

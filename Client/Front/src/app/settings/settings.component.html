@@ -1,4 +1,8 @@
-<h1>Profile Settings</h1>
+<header class="navbar">
+    <span class="username">Welcome User</span>
+    <a [routerLink]="['/UserProfile']"><i class="fa-solid fa-house-chimney"></i>Home</a>
+</header>
+<h1 class="klasa">Profile Settings</h1>
 <div class="main">
     <div class="section">
         <h2 (click)="changeNameDown()">Name & Surname <span class="arrow">{{ nameDown ? '▼' : '►' }}</span></h2>
@@ -22,12 +26,13 @@
         </div>
     </div>
 
+    <hr>
     <div class="section">
         <h2 (click)="changePasswordDown()">Password <span class="arrow">{{ passwordDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="passwordDown" class="section-content">
-            <p>{{ password }}</p>
             <button class="change-btn" (click)="changeVisibiltyIPassword()" >Change</button>
-            <input *ngIf="isVisibleIPasswordOld" [(ngModel)]="newPassword" placeholder="Enter new Email">
+            <input *ngIf="isVisibleIPasswordOld" [(ngModel)]="password" placeholder="Enter old Password" type="password">
+            <input *ngIf="isVisibleIPasswordNew" [(ngModel)]="newPassword" placeholder="Enter new Password" type="password">
             <button class="save-changes-btn" (click)="changePassword()" *ngIf="isVisibleButtonpassword">Save Changes</button>
         </div>
     </div>
@@ -40,19 +45,19 @@
             <p>{{ phone }}</p>
             <button class="change-btn" (click)="changeVisibiltyIPhone()">Change</button>
             <input *ngIf="isVisibleIPhone" [(ngModel)]="newPhone" placeholder="Enter new Phone Number">
-            <button class="save-changes-btn" (click)="changePhone()">Save Changes</button>
+            <button *ngIf="isVisibleButtonPhone" class="save-changes-btn" (click)="changePhone()">Save Changes</button>
         </div>
     </div>
 
     <hr>
 
     <div class="section">
-        <h2 (click)="changeCityDown()">City <span class="arrow">{{ isVisibleICity ? '▼' : '►' }}</span></h2>
+        <h2 (click)="changeCityDown()">City <span class="arrow">{{ cityDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="cityDown" class="section-content">
             <p>{{ city }}</p>
             <button class="change-btn" (click)="changeVisibiltyICity()">Change</button>
             <input *ngIf="isVisibleICity" [(ngModel)]="newCity" placeholder="Enter new City">
-            <button class="save-changes-btn" (click)="changeCity()">Save Changes</button>
+            <button *ngIf="isVisibleButtonCity" class="save-changes-btn" (click)="changeCity()">Save Changes</button>
         </div>
     </div>
 

@@ -1,0 +1,29 @@
+.mat-dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px; /* Razmak između naslova i dugmeta */
+}
+
+.mat-dialog-container h1 {
+    text-align: center;
+    font-size: 1.2em;
+    color: #333; /* Izmeni boju po želji */
+    margin: 0;
+}
+
+.mat-dialog-container button {
+    width: 100%; /* Dugme iste širine kao sadržaj */
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.mat-dialog-container button:hover {
+    background-color: #0056b3; /* Boja dugmeta na hover */
+}

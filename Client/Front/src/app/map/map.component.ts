@@ -12,10 +12,15 @@ import { TravelService } from '../services/travel.service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit{
-
   startPoint:string;
   endPoint:string;
   map?:L.Map;
+  selectedOption: any='None';
+  proposedPOIS:any;
+  proposedRestaurants:any;
+  proposedAccomondations:any;
+  proposedChargerStations:any;
+  proposedRestAreas:any;
 
   constructor(private geocodingService:GeocodingService,private http:HttpClient,private route: ActivatedRoute,private travelService:TravelService)
   {
@@ -24,7 +29,7 @@ export class MapComponent implements OnInit{
   }
  
  
-  async calculateRoute()
+  async calculateRoute(option:any)
   {
     try {
       const startCoords = await this.geocodingService.getCoordinates(this.startPoint).toPromise();
@@ -33,13 +38,13 @@ export class MapComponent implements OnInit{
       const startLatLng = L.latLng(startCoords!.results[0].geometry.lat, startCoords!.results[0].geometry.lng);
       const endLatLng = L.latLng(endCoords!.results[0].geometry.lat, endCoords!.results[0].geometry.lng);
 
-      this.addRoute(startLatLng, endLatLng);
+      this.addRoute(startLatLng, endLatLng,option);
      
     } catch (error) {
       console.error('Greška prilikom dobijanja koordinata:', error);
     }
   }
-   addRoute(start:L.LatLng,end:L.LatLng)
+  addRoute(start:L.LatLng,end:L.LatLng,option:any)
   { 
     const customIcon = L.icon({
       iconUrl: '../../assets/images/start.png', // Putanja do tvoje slik // Putanja do senke, ili izostavi ako nije potrebna
@@ -68,6 +73,7 @@ export class MapComponent implements OnInit{
       console.log(`Procenjeno vreme putovanja: ${summary.totalTime / 60} minuta`);
 
       const totalTimeInMinutes = summary.totalTime / 60;
+      const totalTimeInSeconds=summary.totalTime;
       const hours = Math.floor(totalTimeInMinutes / 60);
       const minutes = Math.floor(totalTimeInMinutes % 60);
       const popupContent = `
@@ -79,13 +85,26 @@ export class MapComponent implements OnInit{
       .openPopup();
       L.marker(end)
       .addTo(this.map!);
-      //this.getPOIsOnRoute(routeCoords);
-      //this.showAccmmodationsOnRoute(routeCoords);
-      //this.showRestaurantsOnRoute(routeCoords);
-      //this.showChargingStationsOnRoute(routeCoords);
-      //this.showRestAreasOnRoute(routeCoords);
-      // this.checkBorderCrossings();
-      
+      switch(option){
+        case 'None':
+          break;
+        case 'POIS':
+          this.getPOIsOnRoute(routeCoords);
+          break;
+        case 'Restaurants':
+          this.showRestaurantsOnRoute(routeCoords);
+          break;
+        case 'Accommodations':
+          this.showAccmmodationsOnRoute(routeCoords);
+          break;
+        case 'ChargingStations':
+          this.showChargingStationsOnRoute(routeCoords);
+          break;
+        default:
+          console.log('greska u switchu');
+      }   
+      this.findPOIAtIntervals(routeCoords[0],routeCoords,totalTimeInSeconds,false);
+      this.findRestAreasAtIntervals(routeCoords[0],routeCoords,totalTimeInSeconds,false);
     });
 
     this.map!.fitBounds(L.latLngBounds(start, end));
@@ -119,7 +138,46 @@ export class MapComponent implements OnInit{
         console.log('Filtrirani POI:', filteredPOIs);
       });
   }
-
+  getPOIsOnRouteV2(routeCoords: L.LatLng[],display:boolean) {
+    this.geocodingService.getPOIsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1]).subscribe((data: any) => {
+      const radius = 15000; // Radijus provere u metrima (5 km)
+  
+      const customIcon=L.icon({
+        iconUrl:'../../assets/images/gas-station.png',
+        iconSize: [12, 12], // Prilagodi veličinu po potrebi
+        iconAnchor: [16, 32], // Podesi tačku sidrišta ako je potrebno
+        popupAnchor: [0, -32] // Podesi tačku za prikaz popup-a
+      });
+      const filteredPOIs = data.elements.filter((element: any) => {
+        if (element.type === 'node') {
+          const point = L.latLng(element.lat, element.lon);
+          return routeCoords.some(coord => {
+            const distance = point.distanceTo(coord);
+            return distance <= radius; // Provera blizine
+          });
+        }
+        return false;
+      });
+      
+      if(display==true){
+      filteredPOIs.forEach((element: any) => {
+        const fuelStation = L.marker([element.lat, element.lon],{icon:customIcon}).addTo(this.map!);
+        fuelStation.bindPopup('Benzinska pumpa');
+      });
+  
+      console.log('Filtrirani POI:', filteredPOIs);
+      }
+      else{
+       if(filteredPOIs.length>3){
+       this.proposedPOIS=filteredPOIs.slice(0,3);
+       }
+       else{
+        this.proposedPOIS=filteredPOIs;
+       }
+       console.log('Proposed',this.proposedPOIS);
+      }
+    });
+}
   showAccmmodationsOnRoute(routeCoords:L.LatLng[]){
     this.geocodingService.getAccomodationsOnRoute(routeCoords[0],routeCoords[routeCoords.length-1])
     .subscribe((data:any)=>{
@@ -150,10 +208,52 @@ export class MapComponent implements OnInit{
       console.log('Filtrirana prenoćišta:', filteredAccommodations);
     });
   }
+  showAccmmodationsOnRouteV2(routeCoords:L.LatLng[],display:boolean){
+    this.geocodingService.getAccomodationsOnRoute(routeCoords[0],routeCoords[routeCoords.length-1])
+    .subscribe((data:any)=>{
+      const radius=15000;
+      const accomodationIcon=L.icon({
+        iconUrl: '../../assets/images/hotel.png', // Putanja do ikone prenoćišta
+        iconSize: [16, 16], // Prilagodi veličinu po potrebi
+        iconAnchor: [8, 8], // Podesi tačku sidrišta
+        popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+      });
+      
+      const filteredAccommodations=data.elements.filter((element:any)=>{
+        if(element.type==='node')
+        {
+          const point=L.latLng(element.lat,element.lon);
+          return routeCoords.some(coord=>{
+            const distance=point.distanceTo(coord);
+            return distance<=radius;
+          });
+        }
+        return false;
+      });
+
+      if(display==true){
+      filteredAccommodations.forEach((element:any) => {
+        const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
+        accommodationMarker.bindPopup('prenociste');
+      });
+      console.log('Filtrirana prenoćišta:', filteredAccommodations);
+    }
+    else{
+      if(filteredAccommodations.length>3)
+      {
+        this.proposedAccomondations=filteredAccommodations.slice(0,3);
+      }
+      else{
+        this.proposedAccomondations=filteredAccommodations;
+      }
+      console.log('Proposed accomondations',this.proposedAccomondations);
+    }
+    });
+  }
   showRestaurantsOnRoute(routeCoords: L.LatLng[]) {
     this.geocodingService.getRestaurantsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
       .subscribe((data: any) => {
-        const radius = 2000; // Radijus pretrage u metrima (5 km)
+        const radius = 5000; // Radijus pretrage u metrima (5 km)
   
         const restaurantIcon = L.icon({
           iconUrl: '../../assets/images/cutlery.png', // Putanja do ikone restorana
@@ -179,6 +279,48 @@ export class MapComponent implements OnInit{
         });
   
         console.log('Filtrirani restorani:', filteredRestaurants);
+      });
+  }
+  showRestaurantsOnRouteV2(routeCoords: L.LatLng[],display:boolean) {
+    this.geocodingService.getRestaurantsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
+      .subscribe((data: any) => {
+        const radius = 15000; // Radijus pretrage u metrima (5 km)
+  
+        const restaurantIcon = L.icon({
+          iconUrl: '../../assets/images/cutlery.png', // Putanja do ikone restorana
+          iconSize: [16, 16], // Prilagodi veličinu po potrebi
+          iconAnchor: [8, 8], // Podesi tačku sidrišta
+          popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+        });
+  
+        const filteredRestaurants = data.elements.filter((element: any) => {
+          if (element.type === 'node') {
+            const point = L.latLng(element.lat, element.lon);
+            return routeCoords.some(coord => {
+              const distance = point.distanceTo(coord);
+              return distance <= radius; // Provera blizine
+            });
+          }
+          return false;
+        });
+  
+        if(display==true){
+        filteredRestaurants.forEach((element: any) => {
+          const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
+          restaurantMarker.bindPopup('Restoran');
+        });
+        console.log('Filtrirani restorani:', filteredRestaurants);
+      }
+      else{
+        if(filteredRestaurants.length>3)
+        {
+          this.proposedRestaurants=filteredRestaurants.slice(0,3);
+        }
+        else{
+          this.proposedRestaurants=filteredRestaurants;
+        }
+        console.log('Proposed restaurants',this.proposedRestaurants);
+      }
       });
   }
   showChargingStationsOnRoute(routeCoords: L.LatLng[]) {
@@ -224,7 +366,7 @@ export class MapComponent implements OnInit{
           iconAnchor: [8, 8], // Podesi tačku sidrišta
           popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
         });
-  
+        console.log('Sva odmorista',data.elements);
         const filteredRestAreas = data.elements.filter((element: any) => {
           if (element.type === 'node') {
             const point = L.latLng(element.lat, element.lon);
@@ -244,25 +386,75 @@ export class MapComponent implements OnInit{
         console.log('Filtrirana odmorišta:', filteredRestAreas);
       });
   }
-  
-  async checkBorderCrossings() {
-    // Hardkodirane koordinate za Beograd i Zagreb
-    const start = L.latLng(44.7866, 20.4489); // Beograd
-    const end = L.latLng(45.8150, 15.9819); // Zagreb
-
-    try {
-      const borderCrossings = await this.geocodingService.getBorderCrossingsBetweenPoints(start,end).toPromise(); 
-      
-      console.log('Granični prelazi:', borderCrossings);
-      // Dalja obrada podataka o graničnim prelazima
-    } catch (error) {
-      console.error('Greška prilikom dobijanja graničnih prelaza:', error);
-    }
-  }
-
   saveTravel()
   {
     this.travelService.createTravel(this.startPoint,this.endPoint);
+  }
+  findRestAreasAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
+  {
+    const drivingIntervalInSeconds=2*3600;
+    const breakTimeInSeconds=0.5*3600;
+
+    let currentIntervalTime=drivingIntervalInSeconds;
+    let accumulatedTime=0;
+
+    for(let i=0;accumulatedTime<totalTravelTimeInSeconds;i++)
+    {
+      //naci indeks tacke na ruti koja odgovara trenutnom intervalu
+      const index=Math.min(Math.floor((routeCoords.length*currentIntervalTime)/totalTravelTimeInSeconds),routeCoords.length-1);
+      const intervalCoords=routeCoords[index];
+      //Prikazi odmorista u blizini intervalne tacke
+      let coordsArr:L.LatLng[]=[start,intervalCoords];
+      this.showRestaurantsOnRouteV2(coordsArr,display);
+      //azuriraj vreme za sledeci interval sa dodatkom pauze
+      currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+      accumulatedTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+    }
+  }
+  findPOIAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
+  {
+    const drivingIntervalInSeconds=2*3600;
+    const breakTimeInSeconds=0.5*3600;
+
+    let currentIntervalTime=drivingIntervalInSeconds;
+    let accumulatedTime=0;
+
+    for(let i=0;accumulatedTime<totalTravelTimeInSeconds;i++)
+    {
+      //naci indeks tacke na ruti koja odgovara trenutnom intervalu
+      const index=Math.min(Math.floor((routeCoords.length*currentIntervalTime)/totalTravelTimeInSeconds),routeCoords.length-1);
+      const intervalCoords=routeCoords[index];
+      //Prikazi odmorista u blizini intervalne tacke
+      let coordsArr:L.LatLng[]=[start,intervalCoords];
+      this.getPOIsOnRouteV2(coordsArr,display);
+      //azuriraj vreme za sledeci interval sa dodatkom pauze
+      currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+      accumulatedTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+    }
+  }
+  findAccomondationAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
+  {
+    const drivingIntervalInSeconds=2*3600;
+    const breakTimeInSeconds=0.5*3600;
+
+    let currentIntervalTime=drivingIntervalInSeconds;
+    let accumulatedTime=0;
+
+    for(let i=0;accumulatedTime<totalTravelTimeInSeconds;i++)
+    {
+      //naci indeks tacke na ruti koja odgovara trenutnom intervalu
+      const index=Math.min(Math.floor((routeCoords.length*currentIntervalTime)/totalTravelTimeInSeconds),routeCoords.length-1);
+      const intervalCoords=routeCoords[index];
+      //Prikazi odmorista u blizini intervalne tacke
+      let coordsArr:L.LatLng[]=[start,intervalCoords];
+      this.showAccmmodationsOnRouteV2(coordsArr,display);
+      //azuriraj vreme za sledeci interval sa dodatkom pauze
+      currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+      accumulatedTime+=drivingIntervalInSeconds+breakTimeInSeconds;
+    }
+  }
+  onOptionChange() {
+    this.calculateRoute(this.selectedOption);
   }
   ngOnInit() {
     
@@ -270,7 +462,7 @@ export class MapComponent implements OnInit{
      this.startPoint=params['start'];
      this.endPoint=params['end'];
    });
-   this.calculateRoute();
+    this.calculateRoute('None');
     this.map=L.map('map').setView([44.869,20.44],13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'

@@ -7,6 +7,7 @@ import { loginAction, loginActionSuccess } from '../actions/login.action';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogSuccessRegistrationComponent } from '../dialog-success-registration/dialog-success-registration.component';
 import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
+import { DialogLoginErrorComponent } from '../dialog-login-error/dialog-login-error.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,7 +36,9 @@ export class LoginService {
       this.store.dispatch(loginActionSuccess({token:response.access_token,username:response.username}));
       this.router.navigate(['/UserProfile']);
 
-    },(error)=>{}
+    },(error)=>{
+      this.dialog.open(DialogLoginErrorComponent);
+    }
   );
   }
 

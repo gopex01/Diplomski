@@ -1,0 +1,5 @@
+<div>
+    <div *ngFor="let arr of arrayRestAreas">
+        <app-rest-areas [name]="arr.tags.name" [latitude]="arr.lat" [longitude]="arr.lon"></app-rest-areas>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class DialogSuccessRegistrationComponent {
 
+  constructor(private dialog:Dialog){}
+  close()
+  {
+    this.dialog.closeAll();
+  }
 }

@@ -4,6 +4,7 @@ import { selectUsername } from '../selectors/login.selector';
 import { getSettingsInfo } from '../actions/userSettings.action';
 import { selectUserCity, selectUserEmail, selectUserName, selectUserPhone } from '../selectors/user.settings.selector';
 import { UserService } from '../services/user.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -43,7 +44,7 @@ export class SettingsComponent implements OnInit{
   passwordDown:Boolean;
   isVisibleButtonpassword:Boolean;
   ngOnInit(): void {
-    this.store.select(selectUsername).subscribe((username)=>{
+    this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{
       this.store.dispatch(getSettingsInfo({username}));
     });
     this.store.select(selectUserName).subscribe((nameX)=>{
@@ -247,15 +248,41 @@ export class SettingsComponent implements OnInit{
   }
   changeVisibiltyIPassword()
   {
-
+    if(this.isVisibleIPasswordOld===true)
+    {
+      this.isVisibleIPasswordOld=false;
+    }
+    else{
+      this.isVisibleIPasswordOld=true;
+    }
+    if(this.isVisibleIPasswordNew===true)
+    {
+      this.isVisibleIPasswordNew=false;
+    }
+    else{
+      this.isVisibleIPasswordNew=true;
+    }
+    if(this.isVisibleButtonpassword===true)
+    {
+      this.isVisibleButtonpassword=false;
+    }
+    else{
+      this.isVisibleButtonpassword=true;
+    }
   }
   changePasswordDown()
   {
-
+    if(this.passwordDown===true)
+    {
+      this.passwordDown=false;
+    }
+    else{
+      this.passwordDown=true;
+    }
   }
   changePassword()
   {
-
+    this.userService.changePassword(this.password,this.newPassword);
   }
 
 }

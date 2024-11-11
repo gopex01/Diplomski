@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChangeEmailComponent } from '../dialog-change-email/dialog-change-email.component';
+import { DialogForgotPasswordComponent } from '../dialog-forgot-password/dialog-forgot-password.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +30,8 @@ export class LoginComponent implements OnInit{
     
   }
   constructor(private loginService:LoginService,
-    private userService:UserService
+    private userService:UserService,
+    private dialog:MatDialog
   ) {
 
     this.valueUsername="";
@@ -53,6 +57,11 @@ export class LoginComponent implements OnInit{
     const dateObject = new Date('Wed Nov 20 2024 00:00:00 GMT+0100 (Central European Standard Time)');
 const formattedDate = dateObject.toISOString().substring(0, 10);
     this.loginService.register(this.valueNameAndSurname,this.valueEmail,this.valueUsernameReg,this.valuePasswordReg,this.valuePhoneNumber,this.valueJMBG,formattedDate,this.valueCity);
+  }
+
+  forgotPassword()
+  {
+    this.dialog.open(DialogForgotPasswordComponent);
   }
 
 }

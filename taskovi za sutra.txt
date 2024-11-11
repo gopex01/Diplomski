@@ -1,0 +1,2 @@
+-stilizuj stranicu s mape skroz sve
+-login dialog still

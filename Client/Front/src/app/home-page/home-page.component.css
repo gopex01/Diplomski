@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    color: #fff;
+    z-index: 10;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid #00ffff;
+    padding: 5px 10px;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px; /* Increased font size */
+}
+
+header nav a:hover {
+    color: #00ffff;
+}
+
+.hero {
+    background-image: url('../../assets/images/homepage.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-text {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.hero-text button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #00ffff;
+    background: transparent;
+    border: 2px solid #00ffff;
+    cursor: pointer;
+}
+
+.hero-text button:hover {
+    background: #00ffff;
+    color: #000;
+}
+a{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+p{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+h1{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}

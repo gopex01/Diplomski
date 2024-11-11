@@ -1,0 +1,29 @@
+.mat-dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
+}
+
+.mat-dialog-container h1 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #333; /* Možete prilagoditi boju naslova */
+    margin: 0;
+}
+
+.mat-dialog-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Boja dugmeta */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.mat-dialog-container button:hover {
+    background-color: #0056b3; /* Tamnija plava boja na hover */
+}

@@ -193,17 +193,16 @@ export class UserService{
             if(isMatchs)
             {   const hashedNewPass = await bcrypt.hash(newPass, 10);
                 user.Password = hashedNewPass;
-                user.Password=newPass;
                 await this.userRepository.save(user);
                 return {message:"Success"}
 
             }
             else{
-                return "Current password is inncorrect!"
+                return {message:"Current password is inncorrect!"}
             }
         }
         else{
-            return "User not found!"
+            return {message:"User not found!"}
         }
     }
 
@@ -214,10 +213,10 @@ export class UserService{
         {
             user.PhoneNumber=newPhoneNumber;
             await this.userRepository.update(user.Id,user);
-            return "Success"
+            return {message:"Success"};
         }
         else{
-            return "User not found"
+            return {message:"User not found"};
         }
     }
     
@@ -231,7 +230,7 @@ export class UserService{
             return  {message:"Success"}
         }
         else{
-            return "User not found"
+            return {message:"User not found"};
         }
     }
 
@@ -247,7 +246,7 @@ export class UserService{
             return {message:"Success"}
         }
         else{
-            return "User Not Found!"
+            return {message:"User Not Found!"}
         }
 
     }
@@ -257,9 +256,9 @@ export class UserService{
         if(user)
         {
             await this.sendMailForResetPassword(username,email);
+            return {message:'Success'}
         }
         else{
-
         }
     }
     async changeName(username:string,newNameAndSurname:string)
@@ -272,7 +271,7 @@ export class UserService{
             return {message:"Success"}
         }
         else{
-            return "User not found"
+            return {message:"User not found"}
         }
     }
     async getDataForChange(username:string)

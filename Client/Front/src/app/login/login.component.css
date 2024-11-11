@@ -266,7 +266,12 @@ display: none;
   height: 400px;
 }
 
-
+.linkerA{
+  color: #ffeba7;
+}
+.linkerA:hover {
+  color: #c4c3ca; /* Boja koju želite kada se pređe mišem preko linka */
+}
 
 
 

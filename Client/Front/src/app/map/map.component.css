@@ -1,5 +1,5 @@
 #map {
-    height: 90%; /* ili bilo koja visina koja ti odgovara */
+    height: 50%; /* ili bilo koja visina koja ti odgovara */
     width: 100%;
   }
 .dugme{
@@ -10,5 +10,29 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-left: 300px;
+    height: 40%;
+    width: 10%;
+}
+.dugmici{
+  margin-left: 30%;
+  margin-top: 10px;
+}
+.predlozi{
+  margin-top: 20px;
+  width: 50%;
+}
+.Info{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.naslov{
+  text-align: center;
+}
+.putanjeDoSvih{
+  margin-top: 20px;
+  margin-left: 150px;
+  text-align: center;
 }
   

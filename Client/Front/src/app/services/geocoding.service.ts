@@ -96,20 +96,6 @@ export class GeocodingService {
 
   return this.http.get(overpassUrl);
 }
-getBorderCrossingsBetweenPoints(start: L.LatLng, end: L.LatLng): Observable<any> {
-  const overpassUrl = `
-    [out:json];
-    (
-      way["boundary"="administrative"]["admin_level"="2"](around:15000, ${start.lat}, ${start.lng});
-      way["boundary"="administrative"]["admin_level"="2"](around:15000, ${end.lat}, ${end.lng});
-    );
-    out body;
-    >;
-    out skel qt;
-  `;
-
-  return this.http.get(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassUrl)}`);
-}
 
 
   
