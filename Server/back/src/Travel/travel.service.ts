@@ -15,11 +15,17 @@ export class TravelService{
             startPoint:newTravel.startPoint,
             endPoint:newTravel.endPoint,
             username:user,
-            accrossTheBorder:newTravel.accrossTheBorder
+            accrossTheBorder:newTravel.accrossTheBorder,
+            date:Date.now()
         }
         const createdTravel=new this.travelModel(travel);
-        createdTravel.save();
-        return "Success created travel";
+        const create=createdTravel.save();
+        if(create){
+        return {message:"Success created travel"};
+        }
+        else{
+            return {message:"Error"};
+        }
     }
     async findAll()
     {

@@ -1,2 +1,3 @@
--stilizuj stranicu s mape skroz sve
--login dialog still
+
+-show on map da radi
+-radio buttoni da inicijalizuju mapu kako treba

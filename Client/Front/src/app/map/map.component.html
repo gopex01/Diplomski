@@ -25,25 +25,29 @@
     <div class="Info">
       <div class="predlozi">
         <div class="naslov">
-          <h3>Recommenended breaks</h3>
-          <div *ngIf="proposedPOIS">
+          <h2>Recommenended breaks</h2>
+          <div *ngIf="proposedPOIS" class="predlozenaOdmaralista">
             <app-list-rest-areas [arrayRestAreas]="proposedPOIS"></app-list-rest-areas>
           </div>
-          <div *ngIf="proposedRestaurants">
+          <div *ngIf="proposedRestaurants" class="predlozenaOdmaralista">
             <app-list-rest-areas [arrayRestAreas]="proposedRestaurants"></app-list-rest-areas>
           </div>
         </div>
       </div>
       <div class="putanjeDoSvih">
-        <h3>List Of POIS</h3>
-        <hr>
-        <h3>List Of Restaurants</h3>
-        <hr>
-        <h3>List Of Accommodations</h3>
-        <hr>
-        <h3>List Of Recharchgers</h3>
+        <h1 class="hovi">List Of POIS</h1>
+        <hr class="linija">
+        <h1 class="hovi">List Of Restaurants</h1>
+        <hr class="linija">
+        <h1 class="hovi">List Of Accommodations</h1>
+        <hr class="linija">
+        <h1 class="hovi">List Of Recharchgers</h1>
+        <hr class="linija">
       </div>
-      <button class="dugme" (click)="saveTravel()">Save search</button>
+      <div class="zadugme">
+        <button class="dugme" (click)="saveTravel()">Save search</button>
+        <button class="dugme">Go back</button>
+      </div>
     </div>
   </div>
   

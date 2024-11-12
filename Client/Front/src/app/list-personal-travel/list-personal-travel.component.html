@@ -1,0 +1,8 @@
+<div class="container">
+    <div class="travels">
+        <div *ngFor="let tr of travelArr$|async" class="put">
+            <app-personal-travel [travel]="tr"></app-personal-travel>
+        </div>
+    </div>
+</div>>
+<div id="map"></div>

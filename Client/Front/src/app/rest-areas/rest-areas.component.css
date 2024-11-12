@@ -1,4 +1,23 @@
 .card
 {
-    border: 3px solid black;
+    width: 100%;
+    background-color: aliceblue;
+    padding: 10px;
+    border: 2px solid #ffeba7;
+    border-radius: 15px;
+    background: radial-gradient(ellipse at bottom, #7090b7 0%, #2A2E3B 100%);
+    margin:5px;
+    margin-bottom: 15px;
+}
+.dugme{
+        padding: 10px;
+      background-color: #ffeba7;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      color: #1A4C62;
 }

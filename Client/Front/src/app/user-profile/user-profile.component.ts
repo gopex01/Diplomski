@@ -89,6 +89,10 @@ export class UserProfileComponent implements OnInit{
   {
     this.router.navigate(['/searchTravel']);
   }
+  personalTravels()
+  {
+    this.router.navigate(['/personalTravels']);
+  }
   onFileSelected(event: Event)
   {
     const file=(event.target as HTMLInputElement).files![0];

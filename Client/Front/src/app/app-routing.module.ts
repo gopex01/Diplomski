@@ -7,6 +7,7 @@ import { MapComponent } from './map/map.component';
 import { SearchTravelComponent } from './search-travel/search-travel.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ListPersonalTravelComponent } from './list-personal-travel/list-personal-travel.component';
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:'mapa',component:MapComponent},
   {path:'searchTravel',component:SearchTravelComponent},
   {path:'',component:HomePageComponent},
-  {path:'aboutUs',component:AboutUsComponent}
+  {path:'aboutUs',component:AboutUsComponent},
+  {path:'personalTravels',component:ListPersonalTravelComponent}
 ];
 
 @NgModule({

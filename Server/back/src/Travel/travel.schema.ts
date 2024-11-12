@@ -15,5 +15,8 @@ export class Travel extends Document{
     @Prop({required:true})
     accrossTheBorder:Boolean
 
+    @Prop({required:true})
+    date:Date;
+
 }
 export const TravelSchema=SchemaFactory.createForClass(Travel);

@@ -4,8 +4,8 @@ import { TravelModel } from '../models/travel.model';
 import { Store } from '@ngrx/store';
 import { selectAuthToken, selectUsername } from '../selectors/login.selector';
 import { selectUserCity } from '../selectors/user.settings.selector';
-import { map, switchMap } from 'rxjs';
-import { TravelApi } from '../api-routes/user-routes';
+import { map, switchMap, take } from 'rxjs';
+import { TravelApi, UserApi } from '../api-routes/user-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,8 @@ export class TravelService {
     let newTravel:TravelModel={
       startPoint:start,
       endPoint:end,
-      accrossTheBorder:false
+      accrossTheBorder:false,
+      date:new Date()
     }
     return this.store.select(selectUsername).subscribe((username)=>{
       this.httpClient.post(TravelApi.createTravel+username,newTravel,{headers:this.headers})
@@ -40,5 +41,18 @@ export class TravelService {
         //
       }
     })
+  }
+
+  getPersonalTravel()
+  {
+    return this.store.select(selectUsername)
+    .pipe(
+      switchMap(username=>
+        this.httpClient.get(TravelApi.getPersonalTravels+username,{headers:this.headers})
+        .pipe(
+          map(travels=>travels || null)
+        )
+      ),
+    );
   }
 }

@@ -18,14 +18,12 @@ export class MapComponent implements OnInit{
   selectedOption: any='None';
   proposedPOIS:any;
   proposedRestaurants:any;
-  proposedAccomondations:any;
-  proposedChargerStations:any;
-  proposedRestAreas:any;
 
   constructor(private geocodingService:GeocodingService,private http:HttpClient,private route: ActivatedRoute,private travelService:TravelService)
   {
     this.startPoint='';
     this.endPoint='';
+
   }
  
  
@@ -71,7 +69,6 @@ export class MapComponent implements OnInit{
       console.log("broj tacaka na ruti",routeCoords);
       console.log(`Dužina rute: ${summary.totalDistance / 1000} km`);
       console.log(`Procenjeno vreme putovanja: ${summary.totalTime / 60} minuta`);
-
       const totalTimeInMinutes = summary.totalTime / 60;
       const totalTimeInSeconds=summary.totalTime;
       const hours = Math.floor(totalTimeInMinutes / 60);
@@ -231,23 +228,12 @@ export class MapComponent implements OnInit{
         return false;
       });
 
-      if(display==true){
       filteredAccommodations.forEach((element:any) => {
         const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
         accommodationMarker.bindPopup('prenociste');
       });
       console.log('Filtrirana prenoćišta:', filteredAccommodations);
-    }
-    else{
-      if(filteredAccommodations.length>3)
-      {
-        this.proposedAccomondations=filteredAccommodations.slice(0,3);
-      }
-      else{
-        this.proposedAccomondations=filteredAccommodations;
-      }
-      console.log('Proposed accomondations',this.proposedAccomondations);
-    }
+    
     });
   }
   showRestaurantsOnRoute(routeCoords: L.LatLng[]) {

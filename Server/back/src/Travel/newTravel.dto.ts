@@ -1,5 +1,6 @@
 export interface newTravel{
     startPoint:string;
     endPoint:string;
-    accrossTheBorder
+    accrossTheBorder:boolean;
+    date:Date;
 }

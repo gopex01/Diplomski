@@ -1,0 +1,7 @@
+.put{
+    border: 2px solid black;
+}
+#map {
+    height: 70%; /* ili bilo koja visina koja ti odgovara */
+    width: 100%;
+  }
