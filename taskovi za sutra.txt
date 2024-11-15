@@ -1,3 +1,4 @@
 
 -show on map da radi
 -radio buttoni da inicijalizuju mapu kako treba
+-sredi ovo s nizovi za recommended breaks

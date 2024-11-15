@@ -1,8 +1,14 @@
 <div class="container">
+    <header class="navbar">
+        <span class="username">Welcome User</span>
+        <a [routerLink]="['/UserProfile']"><i class="fa-solid fa-house-chimney"></i>Home</a>
+    </header>
+    <h1 class="klasa">Personal Travels</h1>
     <div class="travels">
         <div *ngFor="let tr of travelArr$|async" class="put">
             <app-personal-travel [travel]="tr"></app-personal-travel>
         </div>
     </div>
-</div>>
-<div id="map"></div>
+
+</div>
+

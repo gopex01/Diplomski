@@ -1,0 +1,83 @@
+#map {
+    height: 70%; /* ili bilo koja visina koja ti odgovara */
+    width: 100%;
+  }
+
+.dugme{
+  padding: 10px;
+    background-color: #ffeba7;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 10%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #1A4C62;
+    margin-bottom: 10px;
+}
+.dugmici{
+  padding:20px;
+  background: radial-gradient(ellipse at bottom, #1A4C62 0%, #2A2E3B 100%);
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #ffeba7;
+  align-items: center;
+  font-size: 15px;
+}
+.predlozi{
+  margin-top: 20px;
+  width: 30%;
+  border-radius: 2px;
+}
+.Info{
+  display: flex;
+  flex-direction: row;
+  background: radial-gradient(ellipse at bottom, #3A4C62 0%, #2A2E3B 100%);
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #ffeba7;
+  padding: 30px;
+}
+.naslov{
+  text-align: center;
+}
+.putanjeDoSvih{
+  margin-top: 80px;
+  margin-left: 200px;
+  display: flex;
+  flex-direction:column;
+  padding:30px;
+  background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
+  border: 1px solid #ffeba7;
+  border-radius: 10px;
+}
+.predlozenaOdmaralista
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Svaka kolona ima minimalnu širinu 200px */
+  gap: 10px; /* Razmak između elemenata */
+}
+.linija{
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.hovi{
+  padding: 10px;
+  margin:10px;
+  text-decoration: underline;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+.zadugme{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 3%;
+  margin-left: 10%;
+  width: 20%;
+}
+  

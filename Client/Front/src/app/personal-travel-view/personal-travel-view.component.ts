@@ -1,31 +1,30 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GeocodingService } from '../services/geocoding.service';
+import { HttpClient } from '@angular/common/http';
+import { TravelService } from '../services/travel.service';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-control-geocoder';
-import { GeocodingService } from '../services/geocoding.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TravelService } from '../services/travel.service';
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: 'app-personal-travel-view',
+  templateUrl: './personal-travel-view.component.html',
+  styleUrls: ['./personal-travel-view.component.css']
 })
-export class MapComponent implements OnInit{
+export class PersonalTravelViewComponent implements OnInit{
+
   startPoint:string;
   endPoint:string;
   map?:L.Map;
   selectedOption: any='None';
   proposedPOIS:any;
   proposedRestaurants:any;
-
-  constructor(private geocodingService:GeocodingService,private http:HttpClient,private route: ActivatedRoute,private travelService:TravelService)
+  constructor(private route:ActivatedRoute,private geocodingService:GeocodingService,private http:HttpClient,private travelService:TravelService)
   {
     this.startPoint='';
     this.endPoint='';
-
   }
- 
+
   async calculateRoute(option:any)
   {
     try {
@@ -439,20 +438,26 @@ export class MapComponent implements OnInit{
     }
   }
   onOptionChange() {
+    if (this.map) {
+      this.map.eachLayer((layer) => {
+        if (!(layer instanceof L.TileLayer)) {
+          this.map?.removeLayer(layer);
+        }
+      });
+    }
     this.calculateRoute(this.selectedOption);
   }
-  ngOnInit() {
-    
+
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params=>{
-     this.startPoint=params['start'];
-     this.endPoint=params['end'];
-   });
-    this.calculateRoute('None');
-    this.map=L.map('map').setView([44.869,20.44],13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      this.startPoint=params['start'];
+      this.endPoint=params['end'];
+    });
+  this.calculateRoute('None');
+  this.map=L.map('map').setView([44.869,20.44],13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map);
   }
-   
 
 }

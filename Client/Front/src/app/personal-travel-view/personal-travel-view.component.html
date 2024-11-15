@@ -1,0 +1,55 @@
+
+<div id="map"></div>
+<div class="vanmape">
+  <div class="dugmici">
+    <label>
+      <input type="radio" id="option1" name="option1" [(ngModel)]="selectedOption" value="POIS" (change)="onOptionChange()">
+      Show POIS
+    </label>
+    <label>
+      <input type="radio" id="option2" name="option1" [(ngModel)]="selectedOption" value="Restaurants" (change)="onOptionChange()">
+      Show Restaurants
+    </label>
+    <label>
+      <input type="radio" id="option3" name="option1" [(ngModel)]="selectedOption" value="Accommodations" (change)="onOptionChange()">
+      Show Accommodations
+    </label>
+    <label>
+      <input type="radio" id="option4" name="option1" [(ngModel)]="selectedOption" value="ChargingStations" (change)="onOptionChange()">
+      Show Charging Stations
+    </label>
+    <label>
+      <input type="radio" id="option5" name="option1" [(ngModel)]="selectedOption" value="None" (change)="onOptionChange()">None
+    </label>
+  </div>
+  <div class="Info">
+    <div class="predlozi">
+      <div class="naslov">
+        <h2>Recommenended breaks</h2>
+        <div *ngIf="proposedPOIS" class="predlozenaOdmaralista">
+          <app-list-rest-areas [arrayRestAreas]="proposedPOIS"></app-list-rest-areas>
+        </div>
+        <div *ngIf="proposedRestaurants" class="predlozenaOdmaralista">
+          <app-list-rest-areas [arrayRestAreas]="proposedRestaurants"></app-list-rest-areas>
+        </div>
+      </div>
+    </div>
+    <div class="putanjeDoSvih">
+      <h1 class="hovi">List Of POIS</h1>
+      <hr class="linija">
+      <h1 class="hovi">List Of Restaurants</h1>
+      <hr class="linija">
+      <h1 class="hovi">List Of Accommodations</h1>
+      <hr class="linija">
+      <h1 class="hovi">List Of Recharchgers</h1>
+      <hr class="linija">
+    </div>
+    <div class="zadugme">
+      <button class="dugme" (click)="saveTravel()">Delete</button>
+      <button class="dugme">Go back</button>
+    </div>
+  </div>
+</div>
+
+
+
