@@ -17,8 +17,8 @@ export class PersonalTravelViewComponent implements OnInit{
   endPoint:string;
   map?:L.Map;
   selectedOption: any='None';
-  proposedPOIS:any;
-  proposedRestaurants:any;
+  proposedPOIS:any[]=[];
+  proposedRestaurants:any[]=[];
   constructor(private route:ActivatedRoute,private geocodingService:GeocodingService,private http:HttpClient,private travelService:TravelService)
   {
     this.startPoint='';
@@ -164,12 +164,16 @@ export class PersonalTravelViewComponent implements OnInit{
       }
       else{
        if(filteredPOIs.length>3){
-       this.proposedPOIS=filteredPOIs.slice(0,3);
+          let pomocni=filteredPOIs.slice(0,5);
+          pomocni.forEach((x:any)=>{
+            this.proposedPOIS.push(x);
+          });
        }
        else{
         this.proposedPOIS=filteredPOIs;
        }
-       console.log('Proposed',this.proposedPOIS);
+       this.proposedPOIS=this.proposedPOIS.filter((obj,index,self)=> index===self.findIndex((o)=> o.lat===obj.lat && o.len===obj.len));
+       console.log('ne filtrirani',this.proposedPOIS);
       }
     });
 }
@@ -293,17 +297,23 @@ export class PersonalTravelViewComponent implements OnInit{
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
           restaurantMarker.bindPopup('Restoran');
         });
-        console.log('Filtrirani restorani:', filteredRestaurants);
+        
       }
       else{
+       
         if(filteredRestaurants.length>3)
         {
-          this.proposedRestaurants=filteredRestaurants.slice(0,3);
+          let pomocni=filteredRestaurants.slice(0,3);
+         pomocni.forEach((x:any)=>{
+            this.proposedRestaurants.push(x);
+         });
+          
         }
         else{
           this.proposedRestaurants=filteredRestaurants;
         }
-        console.log('Proposed restaurants',this.proposedRestaurants);
+        this.proposedRestaurants=this.proposedRestaurants.filter((obj,index,self)=> index===self.findIndex((o)=>o.lat===obj.lat && o.len===obj.len));
+        console.log('Filtriran prop',this.proposedRestaurants);
       }
       });
   }

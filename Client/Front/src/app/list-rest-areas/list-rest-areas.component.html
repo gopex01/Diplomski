@@ -1,5 +1,5 @@
 <div>
     <div *ngFor="let arr of arrayRestAreas" class="listareas">
-        <app-rest-areas [name]="arr.tags.name" [latitude]="arr.lat" [longitude]="arr.lon"></app-rest-areas>
+        <app-rest-areas *ngIf="arr.tags.name" [name]="arr.tags.name" [latitude]="arr.lat" [longitude]="arr.lon" [startPoint]="startPoint"></app-rest-areas>
     </div>
 </div>

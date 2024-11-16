@@ -39,6 +39,7 @@ import { ListRestAreasComponent } from './list-rest-areas/list-rest-areas.compon
 import { PersonalTravelComponent } from './personal-travel/personal-travel.component';
 import { ListPersonalTravelComponent } from './list-personal-travel/list-personal-travel.component';
 import { PersonalTravelViewComponent } from './personal-travel-view/personal-travel-view.component';
+import { MapForRestComponent } from './map-for-rest/map-for-rest.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { PersonalTravelViewComponent } from './personal-travel-view/personal-tra
     PersonalTravelComponent,
     ListPersonalTravelComponent,
     PersonalTravelViewComponent,
+    MapForRestComponent,
   ],
   imports: [
     BrowserModule,

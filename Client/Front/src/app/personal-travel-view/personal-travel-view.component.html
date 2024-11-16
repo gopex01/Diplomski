@@ -27,10 +27,10 @@
       <div class="naslov">
         <h2>Recommenended breaks</h2>
         <div *ngIf="proposedPOIS" class="predlozenaOdmaralista">
-          <app-list-rest-areas [arrayRestAreas]="proposedPOIS"></app-list-rest-areas>
+          <app-list-rest-areas [arrayRestAreas]="proposedPOIS" [startPoint]="startPoint"></app-list-rest-areas>
         </div>
         <div *ngIf="proposedRestaurants" class="predlozenaOdmaralista">
-          <app-list-rest-areas [arrayRestAreas]="proposedRestaurants"></app-list-rest-areas>
+          <app-list-rest-areas [arrayRestAreas]="proposedRestaurants" [startPoint]="startPoint"></app-list-rest-areas>
         </div>
       </div>
     </div>

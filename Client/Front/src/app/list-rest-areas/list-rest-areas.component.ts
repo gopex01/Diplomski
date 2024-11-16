@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ListRestAreasComponent implements OnInit{
 
   @Input()
+  startPoint!:string
+  @Input()
   arrayRestAreas:any;
   ngOnInit(): void {
     

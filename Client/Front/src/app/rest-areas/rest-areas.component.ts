@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { MapForRestComponent } from '../map-for-rest/map-for-rest.component';
 
 @Component({
   selector: 'app-rest-areas',
@@ -8,20 +11,26 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RestAreasComponent implements OnInit{
 
   @Input()
+  startPoint:string
+  @Input()
   latitude:number;
   @Input()
   longitude:number;
   @Input()
   name:string
-  constructor()
+  constructor(private dialog:MatDialog)
   {
-    
+    this.startPoint='';
     this.latitude=0;
     this.longitude=0;
     this.name='';
   }
   ngOnInit(): void {
     
+  }
+  showOnMap()
+  {
+    this.dialog.open(MapForRestComponent,{height:'600px',width:'600px',data:{startPoint:this.startPoint,endLat:this.latitude,endLon:this.longitude}});
   }
 
 }
