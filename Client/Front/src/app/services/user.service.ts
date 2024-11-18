@@ -115,8 +115,15 @@ export class UserService {
   {
     return this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{
       this.httpClient.patch(UserApi.changeEmail+username+`/${newEmail}`,{},{headers:this.headers})
-      .subscribe(response=>{
-        //this.dialog.open(DialogChangeEmailComponent);
+      .subscribe((response:any)=>{
+        if(response.message=='Success')
+        {
+          this.dialog.open(DialogSuccessChangedComponent,{data:{message:'Success changed email.Now check your email to verify your account'}});
+          this.loginService.logout();
+        }
+        else{
+          this.dialog.open(DialogErrorComponent);
+        }
       }),(error:any)=>{
         this.dialog.open(DialogErrorComponent);
       }
@@ -185,5 +192,30 @@ export class UserService {
     }),(error:any)=>{
       this.dialog.open(DialogErrorComponent);
     }
+  }
+
+  deactivateAccount(password:string)
+  {
+    return this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{
+      this.httpClient.delete(UserApi.deactivateAccount+username+`/${password}`,{headers:this.headers})
+      .subscribe((response:any)=>{
+        if(response.message=='Success')
+        {
+          this.dialog.open(DialogSuccessChangedComponent,{data:{message:'Success deactivated account'}});
+          this.loginService.logout();
+        }
+        else{
+          if(response.message=='Wrong password')
+          {
+            this.dialog.open(DialogErrorReasonComponent,{data:{message:'Wrong password!'}});
+          }
+          else{
+            this.dialog.open(DialogErrorComponent);
+          }
+        }
+      }),(error:any)=>{
+        this.dialog.open(DialogErrorComponent);
+      }
+    })
   }
 }

@@ -7,7 +7,6 @@ import { UserEntity } from './User/user.entity';
 import { AuthModule } from './Auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TravelModule } from './Travel/travel.module';
-import { ProxyModule } from './Proxy/proxy.module';
 
 
 @Module({
@@ -26,7 +25,6 @@ import { ProxyModule } from './Proxy/proxy.module';
     UserModule,
     AuthModule,
     TravelModule,
-    ProxyModule,
     MongooseModule.forRoot('mongodb://localhost:27017/Diplomski'),
   ],
   controllers: [AppController],

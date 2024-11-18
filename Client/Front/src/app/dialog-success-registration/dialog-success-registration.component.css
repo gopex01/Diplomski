@@ -4,6 +4,7 @@
     align-items: center;
     padding: 20px;
     gap: 20px; /* Razmak između naslova i dugmeta */
+    background-color: white;
 }
 
 .mat-dialog-container h1 {
@@ -14,7 +15,7 @@
 }
 
 .mat-dialog-container button {
-    width: 100%; /* Dugme iste širine kao sadržaj */
+    width: 35%; /* Dugme iste širine kao sadržaj */
     padding: 10px;
     background-color: #007bff;
     color: white;

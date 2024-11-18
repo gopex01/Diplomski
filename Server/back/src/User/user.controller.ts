@@ -86,10 +86,10 @@ export class UserController{
     }
     
     @UseGuards(JwtAuthGuard,UserGuard)
-    @Delete('deactivateAccount/:username')
-    async deactivateAccount(@Param('username') username:string)
+    @Delete('deactivateAccount/:username/:password')
+    async deactivateAccount(@Param('username') username:string,@Param('password') password:string)
     {
-        return await this.userService.deactivateAccount(username);
+        return await this.userService.deactivateAccount(username,password);
     }
 
    @Patch('updatePhoto/:username')

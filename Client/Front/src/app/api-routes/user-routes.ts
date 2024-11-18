@@ -16,6 +16,7 @@ export class UserApi{
     public static readonly updatePhoto=this.route+'updatePhoto/';
     public static readonly getImageURL=this.route+'getImageURL/';
     public static readonly forgotPassword=this.route+'forgotPassword/';
+    public static readonly deactivateAccount=this.route+'deactivateAccount/';
 }
 export class TravelApi{
     public static readonly route='http://localhost:3000/Travel/';

@@ -33,7 +33,7 @@ export class RestAreasComponent implements OnInit{
   }
   showOnMap()
   {
-    this.dialog.open(MapForRestComponent,{height:'600px',width:'600px',data:{startPoint:this.startPoint,endLat:this.latitude,endLon:this.longitude}});
+    this.dialog.open(MapForRestComponent,{height:'750px',width:'750px',data:{startPoint:this.startPoint,endLat:this.latitude,endLon:this.longitude}});
   }
 
 }

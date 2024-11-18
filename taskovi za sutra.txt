@@ -4,4 +4,4 @@ da se namesti koja pauza po redu i sta spada pod nju
 
 home i about us da se skrolijue
 olovcica za sliku
-deactivate accoutn
+handluj registraciju

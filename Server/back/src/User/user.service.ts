@@ -292,16 +292,24 @@ export class UserService{
             return "User Not Found!";
         }
     }
-    async deactivateAccount(username:string)
+    async deactivateAccount(username:string,password:string)
     {
         const user:UserEntity=await this.userRepository.findOne({where:{Username:username}});
         if(user)
         {
-            await this.userRepository.delete(user);
-            return {message:"Success"}
+            const isMatchs=await bcrypt.compare(password,user.Password);
+            if(isMatchs)
+            {
+                console.log('uso u delete');
+                await this.userRepository.delete({Username:username});
+                return {message:"Success"}
+            }
+            else{
+                return{message:'Wrong password'}
+            }
         }
         else{
-            return "User not found";
+            return {message: "User not found"};
         }
     }
 

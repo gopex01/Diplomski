@@ -226,9 +226,7 @@ export class SettingsComponent implements OnInit{
     this.userService.changeCity(this.newCity);
     this.city=this.newCity;
   }
-  deactivate() {
-    throw new Error('Method not implemented.');
-  }
+  
   changeVisibiltyDeactivate() {
       
       if(this.isVisibleDeactivateButton)
@@ -283,6 +281,9 @@ export class SettingsComponent implements OnInit{
   changePassword()
   {
     this.userService.changePassword(this.password,this.newPassword);
+  }
+  deactivate() {
+    this.userService.deactivateAccount(this.passwordValue);
   }
 
 }
