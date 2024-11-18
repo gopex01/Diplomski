@@ -72,6 +72,6 @@ export class LoginService {
   logout()
   {
     this.store.dispatch(loginActionSuccess({token:'',username:''}));
-    this.router.navigate(['']);
+    this.router.navigate(['/Login']);
   }
 }

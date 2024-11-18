@@ -12,7 +12,7 @@
   <div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="logo">Travel planning</div>
+      <div class="logo">Trip planning</div>
       <nav class="menu">
         <a  class="menu-item" (click)="showHomeSection()"><i class="fas fa-home"></i> Home</a>
         <a class="menu-item" (click)="showProfileSection()"><i class="fas fa-user"></i> Profile</a>
@@ -25,7 +25,7 @@
     <main class="main-content">
       <!-- Navbar -->
       <header class="navbar">
-        <span class="username">Welcome, User</span>
+        <span class="username">Welcome, {{(user$| async).NameAndSurname}}</span>
         <a [routerLink]="['/Settings']"><i class="fas fa-cog"></i>Settings</a>
         <a (click)="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
       </header>
@@ -51,13 +51,76 @@
               (change)="onFileSelected($event)"
             />
           </div>
-      
-          <span>Name And Surname:<p>{{(user$ | async)?.NameAndSurname || " "}}</p></span>
-          <span>Email:<p>{{(user$ | async)?.Email || " "}}</p></span>
-          <span>Username:<p>{{(user$ | async)?.Username || " "}}</p></span>
-          <span>Phone Number:<p>{{(user$ | async)?.PhoneNumber || " "}}</p></span>
-          <span>Date Of Birth:<p>{{(user$ | async)?.DateOfBirth || " "}}</p></span>
-          <span>City:<p>{{(user$ | async)?.City || " "}}</p></span>
+          <div class="profile-info">
+            <div class="info-row">
+              <span class="label">Name And Surname:</span>
+              <span class="value">{{(user$ | async)?.NameAndSurname || " "}}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Email:</span>
+              <span class="value">{{(user$ | async)?.Email || " "}}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Username:</span>
+              <span class="value">{{(user$ | async)?.Username || " "}}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Phone Number:</span>
+              <span class="value">{{(user$ | async)?.PhoneNumber || " "}}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Date Of Birth:</span>
+              <span class="value">{{(user$ | async)?.DateOfBirth || " "}}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">City:</span>
+              <span class="value">{{(user$ | async)?.City || " "}}</span>
+            </div>
+          </div>
+          
+        </div>
+        <div *ngIf="homeSection">
+          <div class="trip-planning-section">
+            <h1>Plan Your Perfect Trip</h1>
+            <p>
+              Trip planning has never been easier! With integration powered by Leaflet, our app provides you with a detailed view of routes to your destination, border crossings, and real-time traffic updates. 
+              You can even view live crossing videos to ensure you're fully prepared for the road ahead. 
+            </p>
+          
+            <div class="image-container">
+              <img src="../../assets/images/skrin.png" alt="Road infographic">
+            </div>
+          
+         
+          
+            <p>
+              Use our app to explore alternate routes, calculate estimated travel times, and discover nearby attractions and rest stops. 
+              With our user-friendly interface, you can save your plans for future trips or share them with friends and family.
+            </p>
+          
+            <div class="image-container">
+              <img src="../../assets/images/28567.jpg" alt="Trip planning illustration">
+            </div>
+          
+           
+          
+            <div class="social-icons">
+              <a href="https://facebook.com" target="_blank">
+                <img src="../../assets/images/facebook-flat.png" alt="Facebook">
+              </a>
+              <a href="https://instagram.com" target="_blank">
+                <img src="../../assets/images/instagram-flat.png" alt="Instagram">
+              </a>
+              <a href="https://whatsapp.com" target="_blank">
+                <img src="../../assets/images/whatsapp-flat.png" alt="WhatsApp">
+              </a>
+              <a href="https://twitter.com" target="_blank">
+                <img src="../../assets/images/twitter-flat.png" alt="Twitter">
+              </a>
+            </div>
+          </div>
+          
+          
         </div>
       </section>
       

@@ -5,7 +5,7 @@
 }
 
 body, html {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     height: 100%;
 }
 
@@ -93,11 +93,11 @@ header nav a:hover {
     color: #000;
 }
 a{
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }
 p{
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }
 h1{
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }

@@ -11,6 +11,8 @@ import { MapForRestComponent } from '../map-for-rest/map-for-rest.component';
 export class RestAreasComponent implements OnInit{
 
   @Input()
+  numberOfPause:number;
+  @Input()
   startPoint:string
   @Input()
   latitude:number;
@@ -24,6 +26,7 @@ export class RestAreasComponent implements OnInit{
     this.latitude=0;
     this.longitude=0;
     this.name='';
+    this.numberOfPause=0;
   }
   ngOnInit(): void {
     

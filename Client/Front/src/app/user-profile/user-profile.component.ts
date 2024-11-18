@@ -47,7 +47,7 @@ export class UserProfileComponent implements OnInit{
   {
     this.user$=new Observable<User>();
     this.profileSection=false;
-    this.homeSection=false;
+    this.homeSection=true;
     this.settingsSection=false;
     this.imageUrl='';
   }

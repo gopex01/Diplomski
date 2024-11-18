@@ -7,7 +7,7 @@
     <div class="section">
         <h2 (click)="changeNameDown()">Name & Surname <span class="arrow">{{ nameDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="nameDown" class="section-content">
-            <p>{{ name }}</p>
+            <p>Name and Surname:{{ name }}</p>
             <button class="change-btn" (click)="changeVisibiltyIName()" >Change</button>
             <input *ngIf="isVisibleIName" [(ngModel)]="newName" placeholder="Enter new Name">
             <button class="save-changes-btn" (click)="changeName()" *ngIf="isVisibleButtonName">Save Changes</button>
@@ -19,7 +19,7 @@
     <div class="section">
         <h2 (click)="changeEmailDown()">Email <span class="arrow">{{ emailDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="emailDown" class="section-content">
-            <p>{{ email }}</p>
+            <p>Email:{{ email }}</p>
             <button class="change-btn" (click)="changeVisibiltyIEmail()" >Change</button>
             <input *ngIf="isVisibleIEmail" [(ngModel)]="newEmail" placeholder="Enter new Email">
             <button class="save-changes-btn" (click)="changeEmail()" *ngIf="isVisibleButtonEmail">Save Changes</button>
@@ -42,7 +42,7 @@
     <div class="section">
         <h2 (click)="changePhoneDown()">Phone Number <span class="arrow">{{ phoneDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="phoneDown" class="section-content">
-            <p>{{ phone }}</p>
+            <p>Phone Number:{{ phone }}</p>
             <button class="change-btn" (click)="changeVisibiltyIPhone()">Change</button>
             <input *ngIf="isVisibleIPhone" [(ngModel)]="newPhone" placeholder="Enter new Phone Number">
             <button *ngIf="isVisibleButtonPhone" class="save-changes-btn" (click)="changePhone()">Save Changes</button>
@@ -54,7 +54,7 @@
     <div class="section">
         <h2 (click)="changeCityDown()">City <span class="arrow">{{ cityDown ? '▼' : '►' }}</span></h2>
         <div *ngIf="cityDown" class="section-content">
-            <p>{{ city }}</p>
+            <p>City:{{ city }}</p>
             <button class="change-btn" (click)="changeVisibiltyICity()">Change</button>
             <input *ngIf="isVisibleICity" [(ngModel)]="newCity" placeholder="Enter new City">
             <button *ngIf="isVisibleButtonCity" class="save-changes-btn" (click)="changeCity()">Save Changes</button>

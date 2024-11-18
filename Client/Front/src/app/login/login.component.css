@@ -272,6 +272,19 @@ display: none;
 .linkerA:hover {
   color: #c4c3ca; /* Boja koju želite kada se pređe mišem preko linka */
 }
+.linkerB{
+  color:#ffeba7;
+  margin-top:10px;
+}
+.linkerB:hober{
+  color:#c4c3ca;
+}
+.pomocni{
+  display: flex;
+  margin-top: 5px;
+  flex-direction: column;
+  justify-content: center;
+}
 
 
 

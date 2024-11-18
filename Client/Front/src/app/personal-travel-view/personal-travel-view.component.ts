@@ -133,50 +133,64 @@ export class PersonalTravelViewComponent implements OnInit{
         console.log('Filtrirani POI:', filteredPOIs);
       });
   }
-  getPOIsOnRouteV2(routeCoords: L.LatLng[],display:boolean) {
-    this.geocodingService.getPOIsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1]).subscribe((data: any) => {
-      const radius = 15000; // Radijus provere u metrima (5 km)
+  async getPOIsOnRouteV2(routeCoords: L.LatLng[], display: boolean,iteration:number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.geocodingService.getPOIsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
+        .subscribe({
+          next: (data: any) => {
+            const radius = 15000; // Radijus provere u metrima (15 km)
+            const customIcon = L.icon({
+              iconUrl: '../../assets/images/gas-station.png',
+              iconSize: [12, 12],
+              iconAnchor: [16, 32],
+              popupAnchor: [0, -32],
+            });
   
-      const customIcon=L.icon({
-        iconUrl:'../../assets/images/gas-station.png',
-        iconSize: [12, 12], // Prilagodi veličinu po potrebi
-        iconAnchor: [16, 32], // Podesi tačku sidrišta ako je potrebno
-        popupAnchor: [0, -32] // Podesi tačku za prikaz popup-a
-      });
-      const filteredPOIs = data.elements.filter((element: any) => {
-        if (element.type === 'node') {
-          const point = L.latLng(element.lat, element.lon);
-          return routeCoords.some(coord => {
-            const distance = point.distanceTo(coord);
-            return distance <= radius; // Provera blizine
-          });
-        }
-        return false;
-      });
-      
-      if(display==true){
-      filteredPOIs.forEach((element: any) => {
-        const fuelStation = L.marker([element.lat, element.lon],{icon:customIcon}).addTo(this.map!);
-        fuelStation.bindPopup('Benzinska pumpa');
-      });
+            const filteredPOIs = data.elements.filter((element: any) => {
+              if (element.type === 'node') {
+                const point = L.latLng(element.lat, element.lon);
+                return routeCoords.some(coord => {
+                  const distance = point.distanceTo(coord);
+                  return distance <= radius; // Provera blizine
+                });
+              }
+              return false;
+            });
+            filteredPOIs.forEach((poi: any) => {
+              poi.iteration = iteration; // Dodavanje atributa 'iteration'
+            });
+            console.log('Ove pumpe sam našao na ruti', filteredPOIs);
   
-      console.log('Filtrirani POI:', filteredPOIs);
-      }
-      else{
-       if(filteredPOIs.length>3){
-          let pomocni=filteredPOIs.slice(0,5);
-          pomocni.forEach((x:any)=>{
-            this.proposedPOIS.push(x);
-          });
-       }
-       else{
-        this.proposedPOIS=filteredPOIs;
-       }
-       this.proposedPOIS=this.proposedPOIS.filter((obj,index,self)=> index===self.findIndex((o)=> o.lat===obj.lat && o.len===obj.len));
-       console.log('ne filtrirani',this.proposedPOIS);
-      }
+            if (display) {
+              filteredPOIs.forEach((element: any) => {
+                const fuelStation = L.marker([element.lat, element.lon], { icon: customIcon }).addTo(this.map!);
+                fuelStation.bindPopup('Benzinska pumpa');
+              });
+            } else {
+              if (filteredPOIs.length > 3) {
+                let pomocni = filteredPOIs.slice(0, 5);
+                pomocni.forEach((x: any) => {
+                  this.proposedPOIS.push(x);
+                });
+              } else {
+                //this.proposedPOIS = filteredPOIs;
+                filteredPOIs.forEach((x:any)=>{
+                  this.proposedPOIS.push(x);
+                });
+              }
+              this.proposedPOIS = this.proposedPOIS.filter(
+                (obj, index, self) =>
+                  index === self.findIndex(o => o.lat === obj.lat && o.lon === obj.lon)
+              );
+              console.log('Proposed', this.proposedPOIS);
+              
+            }
+            resolve(); // Signalizira završetak
+          },
+          error: (err) => reject(err),
+        });
     });
-}
+  }
   showAccmmodationsOnRoute(routeCoords:L.LatLng[]){
     this.geocodingService.getAccomodationsOnRoute(routeCoords[0],routeCoords[routeCoords.length-1])
     .subscribe((data:any)=>{
@@ -269,9 +283,11 @@ export class PersonalTravelViewComponent implements OnInit{
         console.log('Filtrirani restorani:', filteredRestaurants);
       });
   }
-  showRestaurantsOnRouteV2(routeCoords: L.LatLng[],display:boolean) {
+  async showRestaurantsOnRouteV2(routeCoords: L.LatLng[],display:boolean,iteration:number) {
+    return new Promise<void>((resolve,reject)=>{
     this.geocodingService.getRestaurantsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
-      .subscribe((data: any) => {
+      .subscribe({
+        next:(data:any)=>{
         const radius = 15000; // Radijus pretrage u metrima (5 km)
   
         const restaurantIcon = L.icon({
@@ -291,32 +307,37 @@ export class PersonalTravelViewComponent implements OnInit{
           }
           return false;
         });
-  
+        filteredRestaurants.forEach((rest:any)=>{
+          rest.iteration=iteration;
+        })
         if(display==true){
         filteredRestaurants.forEach((element: any) => {
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
           restaurantMarker.bindPopup('Restoran');
         });
-        
       }
       else{
-       
         if(filteredRestaurants.length>3)
         {
           let pomocni=filteredRestaurants.slice(0,3);
-         pomocni.forEach((x:any)=>{
+          pomocni.forEach((x:any)=>{
             this.proposedRestaurants.push(x);
-         });
-          
+          });
         }
         else{
-          this.proposedRestaurants=filteredRestaurants;
+          filteredRestaurants.forEach((x:any)=>{
+            this.proposedRestaurants.push(x);
+          });
         }
-        this.proposedRestaurants=this.proposedRestaurants.filter((obj,index,self)=> index===self.findIndex((o)=>o.lat===obj.lat && o.len===obj.len));
-        console.log('Filtriran prop',this.proposedRestaurants);
+        this.proposedRestaurants=this.proposedRestaurants.filter((obj,index,self)=>index===self.findIndex((o)=>o.lat===obj.lat && o.lon===obj.long));
+        console.log('Proposed restaurants',this.proposedRestaurants);
       }
-      });
-  }
+      resolve();
+      },
+      error:(err)=>reject(err),
+    });
+  });
+}
   showChargingStationsOnRoute(routeCoords: L.LatLng[]) {
     this.geocodingService.getChargingStationsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
       .subscribe((data: any) => {
@@ -384,7 +405,7 @@ export class PersonalTravelViewComponent implements OnInit{
   {
     this.travelService.createTravel(this.startPoint,this.endPoint);
   }
-  findRestAreasAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
+  async findRestAreasAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
   {
     const drivingIntervalInSeconds=2*3600;
     const breakTimeInSeconds=0.5*3600;
@@ -399,20 +420,19 @@ export class PersonalTravelViewComponent implements OnInit{
       const intervalCoords=routeCoords[index];
       //Prikazi odmorista u blizini intervalne tacke
       let coordsArr:L.LatLng[]=[start,intervalCoords];
-      this.showRestaurantsOnRouteV2(coordsArr,display);
+      await this.showRestaurantsOnRouteV2(coordsArr,display,i);
       //azuriraj vreme za sledeci interval sa dodatkom pauze
       currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;
       accumulatedTime+=drivingIntervalInSeconds+breakTimeInSeconds;
     }
   }
-  findPOIAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
+  async findPOIAtIntervals(start:L.LatLng,routeCoords:L.LatLng[],totalTravelTimeInSeconds:number,display:boolean)
   {
     const drivingIntervalInSeconds=2*3600;
     const breakTimeInSeconds=0.5*3600;
 
     let currentIntervalTime=drivingIntervalInSeconds;
     let accumulatedTime=0;
-
     for(let i=0;accumulatedTime<totalTravelTimeInSeconds;i++)
     {
       //naci indeks tacke na ruti koja odgovara trenutnom intervalu
@@ -420,7 +440,8 @@ export class PersonalTravelViewComponent implements OnInit{
       const intervalCoords=routeCoords[index];
       //Prikazi odmorista u blizini intervalne tacke
       let coordsArr:L.LatLng[]=[start,intervalCoords];
-      this.getPOIsOnRouteV2(coordsArr,display);
+      console.log('redni broj iteracije',i);
+      await this.getPOIsOnRouteV2(coordsArr,display,i);
       //azuriraj vreme za sledeci interval sa dodatkom pauze
       currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;
       accumulatedTime+=drivingIntervalInSeconds+breakTimeInSeconds;

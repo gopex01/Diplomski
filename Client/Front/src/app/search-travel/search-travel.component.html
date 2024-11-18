@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Page</title>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
-</head>
-<body>
-  <section class="search-form">
-    <h2>Search</h2>
-    <form (submit)="onSearch()">
-      <input type="text" [(ngModel)]="startPoint" name="startPoint" placeholder="From" required />
-      <input type="text" [(ngModel)]="endPoint" name="endPoint" placeholder="To" required />
-      <button type="submit">Search</button>
-    </form>
-  </section>
-</body>
-</html>
+
+<header class="navbar">
+    <span class="username">Welcome User</span>
+    <a [routerLink]="['/UserProfile']"><i class="fa-solid fa-house-chimney"></i>Home</a>
+</header>
+<h1 class="klasa">Search travel</h1>
+<div class="container">
+<section class="search-form">
+  <h2>Search</h2>
+  <form (submit)="onSearch()">
+    <input type="text" [(ngModel)]="startPoint" name="startPoint" placeholder="From" required />
+    <input type="text" [(ngModel)]="endPoint" name="endPoint" placeholder="To" required />
+    <button type="submit">Search</button>
+  </form>
+</section>
+</div>
+

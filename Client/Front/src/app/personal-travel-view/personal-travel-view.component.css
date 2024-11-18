@@ -80,4 +80,44 @@
   margin-left: 10%;
   width: 20%;
 }
+.granica{
+  background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
+  border: 1px solid #ffeba7;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin:20px;
+  margin-bottom: 0px;
+}
+.naslovGranica{
+  font-family:'Poppins', sans-serif;
+  font-weight: bold;
+}
+.putanjaDoGranicu{
+  font-family: 'Poppings',sans-serif;
+  font-weight: normal;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.putanjaDoGranicu:acitve{
+  font-family: 'Poppings',sans-serif;
+  font-weight: normal;
+  color:#ffeba7;
+}
+.putanjaDoGranicu:visited{
+  font-family: 'Poppings',sans-serif;
+  font-weight: normal;
+  color:#ffeba7;
+}
+.naslovDiv{
+  display: flex;
+  justify-content: center;
+}
+img{
+  width: 10%;
+  height: 10%;
+  margin-top:2px;
+  margin-left: 2px;
+}
   

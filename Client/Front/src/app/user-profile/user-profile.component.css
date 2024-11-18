@@ -93,8 +93,7 @@ a:hover {
   padding: 20px;
   color: #ffeba7;
 }
-.profile span {
-  font-weight: bold; /* Boldovanje teksta */
+.profile span { /* Boldovanje teksta */
   font-size: 1.2em;  /* Povećanje veličine fonta */
   margin-bottom: 10px; /* Razmak između redova */
 }
@@ -166,6 +165,79 @@ a:hover {
   cursor: pointer;
   border: 2px solid #ccc;
 }
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Razmak između stavki */
+}
+
+.info-row {
+  display: flex; /* Razmak između label i value */ 
+}
+
+.label {
+  font-weight: bold;
+  color: #ffeba7;
+  margin-left: 1%; /* Širina labela */
+}
+
+.value {
+  color: #ffeba7; /* Širina vrednosti */
+  text-align: left; /* Poravnanje vrednosti */
+  font-weight: normal;
+}
+.trip-planning-section {
+  text-align: center;
+  color: #ffeba7;
+  padding: 20px;
+  background-color:  rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-top:2px;
+  margin:auto;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.trip-planning-section h1 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+
+
+.image-container {
+  margin-top:2px;
+}
+
+.image-container img {
+  width: 40%;
+  height: 15%;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  text-decoration: none;
+}
+
+.social-icons img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+}
+
+
 
 
 
