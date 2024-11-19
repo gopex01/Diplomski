@@ -1,8 +1,6 @@
-export interface TravelModel{
+export interface TravelModelDto{
     startPoint:string;
     endPoint:string;
     accrossTheBorder:Boolean;
     date:Date;
-    _id:string;
-
 }

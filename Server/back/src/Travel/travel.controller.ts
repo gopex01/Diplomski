@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { TravelService } from "./travel.service";
 import { Travel } from "./travel.schema";
 import { newTravel } from "./newTravel.dto";
@@ -24,4 +24,10 @@ export class TravelController
     {
         return await this.travelService.findPersonalTravels(username);
     }
+    @Delete('deleteTravel/:id')
+    async deleteTravel(@Param('id') id:string)
+    {
+        return await this.travelService.deleteTravel(id);
+    }
+
 }

@@ -35,4 +35,16 @@ export class TravelService{
     {
         return this.travelModel.find({username:username}).exec();
     }
+    async deleteTravel(id:string)
+    {
+        const travel=await this.travelModel.find({_id:id});
+        if(travel)
+        {
+            await this.travelModel.deleteOne({_id:id});
+            return {message:"Success"};
+        }
+        else{
+            return {message:"Not found!"};
+        }
+    }
 }

@@ -22,4 +22,5 @@ export class TravelApi{
     public static readonly route='http://localhost:3000/Travel/';
     public static readonly createTravel=this.route+'createTravel/';
     public static readonly getPersonalTravels=this.route+'getPersonalTravels/';
+    public static readonly deleteTravel=this.route+'deleteTravel/';
 }
