@@ -8,6 +8,9 @@
     background: radial-gradient(ellipse at bottom, #7090b7 0%, #2A2E3B 100%);
     margin:5px;
     margin-bottom: 15px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .dugme{
         padding: 10px;
@@ -20,4 +23,7 @@
       font-family: 'Poppins', sans-serif;
       font-weight: bold;
       color: #1A4C62;
+}
+p{
+  font-size: 17px;
 }

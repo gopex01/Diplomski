@@ -9,12 +9,13 @@ export class ListRestAreasComponent implements OnInit{
 
 
   @Input()
+  ListType!:string;
+  @Input()
   startPoint!:string
   @Input()
   arrayRestAreas:any;
-
+  @Input()
   ngOnInit(): void {
-   
+  
   }
-
 }

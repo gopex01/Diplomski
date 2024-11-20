@@ -16,9 +16,18 @@ export class ListPersonalTravelComponent implements OnInit{
     this.travelArr$=new Observable<any>();
   }
   ngOnInit(): void {
+
+    this.loadTravels();
+    this.travelService.travelDeleted$.subscribe((deletedTravelId)=>{
+      this.loadTravels();
+    })
+   // this.travelArr$=this.travelService.getPersonalTravel();
+    //this.travelArr$.subscribe();
+  }
+  loadTravels()
+  {
     this.travelArr$=this.travelService.getPersonalTravel();
     this.travelArr$.subscribe();
-    
   }
   
   

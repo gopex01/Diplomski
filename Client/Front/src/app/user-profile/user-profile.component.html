@@ -33,7 +33,7 @@
       <!-- Profile content -->
       <section class="profile">
         <div *ngIf="profileSection" class="profileData">
-          <h1>User Profile</h1>
+          
           
           <!-- Slika korisnika -->
           <div class="profile-picture-container">
@@ -43,6 +43,9 @@
               class="profile-picture"
               (click)="onChangeProfilePicture()"
             />
+            <div class="overlay" (click)="onChangeProfilePicture()">
+              <span class="overlay-text">Change Photo</span>
+            </div>
             <input
               type="file"
               #fileInput
@@ -82,7 +85,7 @@
         <div *ngIf="homeSection">
           <div class="trip-planning-section">
             <h1>Plan Your Perfect Trip</h1>
-            <p>
+            <p class="textHome">
               Trip planning has never been easier! With integration powered by Leaflet, our app provides you with a detailed view of routes to your destination, border crossings, and real-time traffic updates. 
               You can even view live crossing videos to ensure you're fully prepared for the road ahead. 
             </p>
@@ -93,7 +96,7 @@
           
          
           
-            <p>
+            <p class="textHome">
               Use our app to explore alternate routes, calculate estimated travel times, and discover nearby attractions and rest stops. 
               With our user-friendly interface, you can save your plans for future trips or share them with friends and family.
             </p>

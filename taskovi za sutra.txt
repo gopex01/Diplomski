@@ -5,5 +5,5 @@ da se namesti koja pauza po redu i sta spada pod nju
 
 olovcica za sliku
 handluj registraciju
-brisanje putovanja(dodato al ce mora se cuvaju u store da bi se kad se obrisu odma rerenderovala stranica)-TO JE SUTRA PRIMARNO!
 uloge
+da se brise kad se odradi signup

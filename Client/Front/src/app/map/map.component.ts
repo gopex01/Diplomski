@@ -64,9 +64,6 @@ export class MapComponent implements OnInit{
       const routes=e.routes;
       const summary=routes[0].summary;
       const routeCoords=routes[0].coordinates;
-      console.log("broj tacaka na ruti",routeCoords);
-      console.log(`Dužina rute: ${summary.totalDistance / 1000} km`);
-      console.log(`Procenjeno vreme putovanja: ${summary.totalTime / 60} minuta`);
       const totalTimeInMinutes = summary.totalTime / 60;
       const totalTimeInSeconds=summary.totalTime;
       const hours = Math.floor(totalTimeInMinutes / 60);
@@ -128,8 +125,20 @@ export class MapComponent implements OnInit{
         filteredPOIs.forEach((element: any) => {
           const fuelStation = L.marker([element.lat, element.lon],{icon:customIcon}).addTo(this.map!);
           fuelStation.bindPopup('Benzinska pumpa');
-        });
+          fuelStation.on('click', () => {
+            const stationCoords = L.latLng(element.lat, element.lon);
     
+            // Kreiraj novu rutu do benzinske pumpe
+            L.Routing.control({
+              waypoints: [
+                routeCoords[0], // Početna tačka (prva iz postojeće rute)
+                stationCoords   // Benzinska pumpa
+              ],
+              routeWhileDragging: true
+            }).addTo(this.map!);
+          });
+        });
+        
         console.log('Filtrirani POI:', filteredPOIs);
       });
   }
@@ -159,7 +168,7 @@ export class MapComponent implements OnInit{
             filteredPOIs.forEach((poi: any) => {
               poi.iteration = iteration; // Dodavanje atributa 'iteration'
             });
-            console.log('Ove pumpe sam našao na ruti', filteredPOIs);
+        
   
             if (display) {
               filteredPOIs.forEach((element: any) => {
@@ -168,7 +177,7 @@ export class MapComponent implements OnInit{
               });
             } else {
               if (filteredPOIs.length > 3) {
-                let pomocni = filteredPOIs.slice(0, 5);
+                let pomocni = filteredPOIs.slice(0, 3);
                 pomocni.forEach((x: any) => {
                   this.proposedPOIS.push(x);
                 });
@@ -182,7 +191,7 @@ export class MapComponent implements OnInit{
                 (obj, index, self) =>
                   index === self.findIndex(o => o.lat === obj.lat && o.lon === obj.lon)
               );
-              console.log('Proposed', this.proposedPOIS);
+              console.log('Proposed pumpe', this.proposedPOIS);
               
             }
             resolve(); // Signalizira završetak
@@ -218,6 +227,18 @@ export class MapComponent implements OnInit{
       filteredAccommodations.forEach((element:any)=>{
         const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
         accommodationMarker.bindPopup('prenociste');
+        accommodationMarker.on('click',()=>{
+          const stationCoords = L.latLng(element.lat, element.lon);
+    
+            // Kreiraj novu rutu do benzinske pumpe
+            L.Routing.control({
+              waypoints: [
+                routeCoords[0], // Početna tačka (prva iz postojeće rute)
+                stationCoords   // Benzinska pumpa
+              ],
+              routeWhileDragging: true
+            }).addTo(this.map!);
+        });
       });
       console.log('Filtrirana prenoćišta:', filteredAccommodations);
     });
@@ -279,6 +300,18 @@ export class MapComponent implements OnInit{
         filteredRestaurants.forEach((element: any) => {
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
           restaurantMarker.bindPopup('Restoran');
+          restaurantMarker.on('click',()=>{
+            const stationCoords = L.latLng(element.lat, element.lon);
+    
+            // Kreiraj novu rutu do benzinske pumpe
+            L.Routing.control({
+              waypoints: [
+                routeCoords[0], // Početna tačka (prva iz postojeće rute)
+                stationCoords   // Benzinska pumpa
+              ],
+              routeWhileDragging: true
+            }).addTo(this.map!);
+          })
         });
   
         console.log('Filtrirani restorani:', filteredRestaurants);
@@ -308,10 +341,11 @@ export class MapComponent implements OnInit{
           }
           return false;
         });
+        console.log('Filtrirani restorani',filteredRestaurants);
         filteredRestaurants.forEach((rest:any)=>{
           rest.iteration=iteration;
         })
-        if(display==true){
+        if(display){
         filteredRestaurants.forEach((element: any) => {
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
           restaurantMarker.bindPopup('Restoran');
@@ -330,7 +364,10 @@ export class MapComponent implements OnInit{
             this.proposedRestaurants.push(x);
           });
         }
-        this.proposedRestaurants=this.proposedRestaurants.filter((obj,index,self)=>index===self.findIndex((o)=>o.lat===obj.lat && o.lon===obj.long));
+        this.proposedRestaurants = this.proposedRestaurants.filter(
+          (obj, index, self) =>
+            index === self.findIndex(o => o.lat === obj.lat && o.lon === obj.lon)
+        );
         console.log('Proposed restaurants',this.proposedRestaurants);
       }
       resolve();
@@ -365,6 +402,18 @@ export class MapComponent implements OnInit{
         filteredStations.forEach((element: any) => {
           const chargingMarker = L.marker([element.lat, element.lon], { icon: chargingStationIcon }).addTo(this.map!);
           chargingMarker.bindPopup('Punjač za električne automobile');
+          chargingMarker.on('click',()=>{
+            const stationCoords = L.latLng(element.lat, element.lon);
+    
+            // Kreiraj novu rutu do benzinske pumpe
+            L.Routing.control({
+              waypoints: [
+                routeCoords[0], // Početna tačka (prva iz postojeće rute)
+                stationCoords   // Benzinska pumpa
+              ],
+              routeWhileDragging: true
+            }).addTo(this.map!);
+          })
         });
   
         console.log('Filtrirani punjači:', filteredStations);

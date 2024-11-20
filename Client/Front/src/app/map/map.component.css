@@ -11,8 +11,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    height: 10%;
-    width: 100%;
+    height: 50px;
+    width: 80%;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     color: #1A4C62;
@@ -29,8 +29,10 @@
 }
 .predlozi{
   margin-top: 20px;
-  width: 30%;
+  width: 40%;
   border-radius: 2px;
+  display: flex;
+  flex-direction: column;
 }
 .Info{
   display: flex;
@@ -43,6 +45,13 @@
 }
 .naslov{
   text-align: center;
+  border-bottom: 1px solid #ffeba7;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+.naslov h1{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
 }
 .putanjeDoSvih{
   margin-top: 80px;
@@ -59,6 +68,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Svaka kolona ima minimalnu širinu 200px */
   gap: 10px; /* Razmak između elemenata */
+  width: 70%;
+  align-items: center;
 }
 .linija{
   width: 100%;
@@ -119,5 +130,43 @@ img{
   height: 10%;
   margin-top:2px;
   margin-left: 2px;
+}
+.odmaralista{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+}
+.pumpe{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.pumpe h1{
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+.restorani{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.restorani h1{
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+.sve-granice{
+
+  margin-left: 7%;
+}
+.divzadugme{
+  width: 15%;
+  display: flex;
+  flex-direction: column;
 }
   

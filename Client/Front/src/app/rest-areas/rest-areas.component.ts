@@ -20,6 +20,8 @@ export class RestAreasComponent implements OnInit{
   longitude:number;
   @Input()
   name:string
+  @Input()
+  type:string;
   constructor(private dialog:MatDialog)
   {
     this.startPoint='';
@@ -27,6 +29,7 @@ export class RestAreasComponent implements OnInit{
     this.longitude=0;
     this.name='';
     this.numberOfPause=0;
+    this.type='';
   }
   ngOnInit(): void {
     

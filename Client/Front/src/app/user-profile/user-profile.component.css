@@ -32,7 +32,7 @@ a:hover {
   padding-top: 20px;
 }
 .logo {
-  font-size: 1.5em;
+  font-size: 2.0em;
   margin-bottom: 30px;
   color: #ffeba7;
 }
@@ -41,6 +41,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 22px;
 }
 .menu-item {
   color: #ffeba7;
@@ -53,7 +54,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 16px;
+  font-size: 22px;
 }
 .menu-item:hover {
   background-color: #555;
@@ -75,6 +76,7 @@ a:hover {
 .username {
   font-weight: bold;
   color: #ffeba7;
+  font-size: 22px;
 }
 .logout-btn {
   padding: 10px 20px;
@@ -94,12 +96,12 @@ a:hover {
   color: #ffeba7;
 }
 .profile span { /* Boldovanje teksta */
-  font-size: 1.2em;  /* Povećanje veličine fonta */
+  font-size: 1.6em;  /* Povećanje veličine fonta */
   margin-bottom: 10px; /* Razmak između redova */
 }
 
 .profile p {
-  font-size: 1em; /* Veličina fonta za paragraf */
+  font-size: 1.6em; /* Veličina fonta za paragraf */
   margin: 0; /* Uklanjanje podrazumevanog margina */
   font-weight: normal;
 }
@@ -111,6 +113,8 @@ a:hover {
     padding: 20px; /* Unutrašnji razmak */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Senka za 3D efekat */
     margin-top: 20px; /* Razmak od elemenata iznad */
+    justify-content: center;
+    align-items: center;
 
   
 }
@@ -136,14 +140,16 @@ a:hover {
 /* Stilizacija za dugmad u navbaru */
 .navbar a {
   color: #ffeba7; /* Svetlija boja teksta */
-  font-size: 1em;
+  font-size: 1.3em;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
   transition: color 0.3s;
 }
-
+.textHome{
+  font-size: 0.8em;
+}
 .navbar a:hover {
   color: #c4c3ca; /* Svetlija nijansa pri hover-u */
 }
@@ -158,12 +164,13 @@ a:hover {
 }
 
 .profile-picture {
-  width: 150px;
-  height: 150px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
   border: 2px solid #ccc;
+  transition: trafnsform 0.3s ease;
 }
 .profile-info {
   display: flex;
@@ -177,6 +184,7 @@ a:hover {
 
 .label {
   font-weight: bold;
+  font-size: 38px;
   color: #ffeba7;
   margin-left: 1%; /* Širina labela */
 }
@@ -185,6 +193,7 @@ a:hover {
   color: #ffeba7; /* Širina vrednosti */
   text-align: left; /* Poravnanje vrednosti */
   font-weight: normal;
+  font-size: 38px;
 }
 .trip-planning-section {
   text-align: center;
@@ -211,7 +220,7 @@ a:hover {
 
 .image-container img {
   width: 40%;
-  height: 15%;
+  height: 12%;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -236,8 +245,40 @@ a:hover {
 .social-icons img:hover {
   transform: scale(1.2);
 }
+h1{
+  font-size: 1.7em;
+}
 
+.profile-picture-container:hover .profile-picture {
+  transform: scale(1.05); /* Blago zumiranje slike na hover */
+}
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Polutransparentna tamna pozadina */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Skriveno dok nije hover */
+  transition: opacity 0.3s ease; /* Glatka tranzicija za prikaz */
+  border-radius: 50%;
+  cursor: pointer;
+}
 
+.profile-picture-container:hover .overlay {
+  opacity: 1; /* Prikazuje overlay na hover */
+}
+
+.overlay-text {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  user-select: none; /* Sprečava selektovanje teksta */
+}
 
 

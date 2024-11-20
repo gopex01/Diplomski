@@ -4,7 +4,7 @@ import { TravelModel } from '../models/travel.model';
 import { Store } from '@ngrx/store';
 import { selectAuthToken, selectUsername } from '../selectors/login.selector';
 import { selectUserCity } from '../selectors/user.settings.selector';
-import { map, switchMap, take } from 'rxjs';
+import { map, Subject, switchMap, take } from 'rxjs';
 import { TravelApi, UserApi } from '../api-routes/user-routes';
 import { TravelModelDto } from '../models/travel.mode.dto';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,6 +17,8 @@ import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 })
 export class TravelService {
 
+  private travelDeletedSubject=new Subject<string>();
+  travelDeleted$=this.travelDeletedSubject.asObservable();
   headers:HttpHeaders=new HttpHeaders();
   constructor(private httpClient:HttpClient,
     private store:Store,
@@ -40,12 +42,18 @@ export class TravelService {
       accrossTheBorder:false,
       date:new Date()
     }
-    return this.store.select(selectUsername).subscribe((username)=>{
+    return this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{
       this.httpClient.post(TravelApi.createTravel+username,newTravel,{headers:this.headers})
-      .subscribe(response=>{
-        console.log("uspeh");
+      .subscribe((response:any)=>{
+        if(response.message=='Success created travel')
+        {
+          this.dialog.open(DialogSuccessChangedComponent,{data:{message:'Success saved trip.'}})
+        }
+        else{
+          this.dialog.open(DialogErrorComponent);
+        }
       }),(error:any)=>{
-        //
+        this.dialog.open(DialogErrorComponent);
       }
     })
   }
@@ -68,6 +76,7 @@ export class TravelService {
     .subscribe((response:any)=>{
       if(response.message=='Success')
       {
+        this.travelDeletedSubject.next(travelId);//emituje ID obrisanog putovanja
         this.dialog.open(DialogSuccessChangedComponent,{data:{message:'Success deleted!'}});
         this.router.navigate(['/personalTravels']);
       }
