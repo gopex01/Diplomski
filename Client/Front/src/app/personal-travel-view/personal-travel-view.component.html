@@ -4,7 +4,7 @@
   <div class="dugmici">
     <label>
       <input type="radio" id="option1" name="option1" [(ngModel)]="selectedOption" value="POIS" (change)="onOptionChange()">
-      Show POIS
+      Show Petrol Stations
     </label>
     <label>
       <input type="radio" id="option2" name="option1" [(ngModel)]="selectedOption" value="Restaurants" (change)="onOptionChange()">
@@ -25,16 +25,24 @@
   <div class="Info">
     <div class="predlozi">
       <div class="naslov">
-        <h2>Recommenended breaks</h2>
-        <div *ngIf="proposedPOIS" class="predlozenaOdmaralista">
-          <app-list-rest-areas [arrayRestAreas]="proposedPOIS" [startPoint]="startPoint"></app-list-rest-areas>
+        <h1>Recommenended breaks</h1>
+      </div>
+      <div class="odmaralista">
+        <div class="pumpe">
+          <h1>Petrol stations</h1>
+          <div *ngIf="proposedPOIS" class="predlozenaOdmaralista">
+            <app-list-rest-areas [arrayRestAreas]="proposedPOIS" [startPoint]="startPoint" [ListType]="'Petrol station'"></app-list-rest-areas>
+          </div>
         </div>
-        <div *ngIf="proposedRestaurants" class="predlozenaOdmaralista">
-          <app-list-rest-areas [arrayRestAreas]="proposedRestaurants" [startPoint]="startPoint"></app-list-rest-areas>
+        <div class="restorani">
+          <h1>Restaurants</h1>
+          <div *ngIf="proposedRestaurants" class="predlozenaOdmaralista">
+            <app-list-rest-areas [arrayRestAreas]="proposedRestaurants" [startPoint]="startPoint" [ListType]="'Restaurant'"></app-list-rest-areas>
+          </div>
         </div>
       </div>
     </div>
-    <div class="sve granice">
+    <div class="sve-granice">
       <div class="granica">
         <div class="naslovDiv">
           <h1 class="naslovGranica">Border crossings Hungary</h1>
@@ -94,12 +102,20 @@
         <a class="putanjaDoGranicu" target="_blank" href="http://www.mup.gov.rs/wps/portal/sr/kamer%D0%B5/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziDY0sjTyM3Q18DAwtDA0CvY0cA4wCvI0MjMz1C7IdFQH3yjKr/#!">Border crossing to Presevo</a>
       </div>
     </div>
-    <div class="zadugme">
-      <button class="dugme" (click)="saveTravel()">Delete</button>
-      <button class="dugme">Go back</button>
+    <div class="skrozDesni">
+      <div class="granica">
+        <div class="naslovDivPutevi">
+          <h1 class="naslovGranica">Javno preduzece putevi Srbije</h1>
+          <img src="../../assets/images/putevi.png" class="slikaPutevi">
+        </div>  
+        <a class="putanjaDoGranicu" target="_blank" href="https://www.putevi-srbije.rs/index.php/%D1%81%D1%82%D0%B0%D1%9A%D0%B5-%D0%BD%D0%B0-%D0%B4%D1%80%D0%B6%D0%B0%D0%B2%D0%BD%D0%B8%D0%BC-%D0%BF%D1%83%D1%82%D0%B5%D0%B2%D0%B8%D0%BC%D0%B0">Show the state of the roads in Serbia</a>
+      </div>
+      <div class="divzadugme">
+        <button class="dugmeDesno" (click)="saveTravel()">Save Trip</button>
+        <button class="dugmeDesno" [routerLink]="['/searchTravel']">Go back</button>
+      </div>
     </div>
   </div>
 </div>
-
 
 

@@ -291,6 +291,23 @@ span{
   font-size: 20px;
 }
 
+.invalid-input {
+  border: 2px solid red;
+  background-color: grey;
+}
+.disabled-link {
+  pointer-events: none; /* Onemogućava klik */
+  opacity: 0.5; /* Vizuelno označava da je onemogućen */
+  cursor: not-allowed; /* Prikazuje kursora kao "not-allowed" */
+}
+
+a {
+  cursor: pointer;
+}
+
+a[disabled] {
+  cursor: not-allowed;
+}
 
 #stars {
   width: 1px;

@@ -65,13 +65,15 @@
                         <i class="input-iconV2 uil uil-lock-alt"></i>
                       </div>
                       <div class="form-groupV2 mt-2">
-                        <input [(ngModel)]="valuePhoneNumber" type="text" class="form-styleV2" placeholder="PhoneNumber">
+                        <input [(ngModel)]="valuePhoneNumber"
+                         type="text" class="form-styleV2" placeholder="PhoneNumber"
+                         [ngClass]="{'invalid-input':isPhoneNumberInvalid}"
+                         (ngModelChange)="validatePhoneNumber()">
                         <i class="input-iconV2 uil uil-phone"></i>
+                        <div *ngIf="isPhoneNumberInvalid" class="error-message">
+                          Phone number cannot exceed 15 characters.
+                        </div>
                       </div>
-                      <!--<div class="form-groupV2 mt-2">
-                        <input [(ngModel)]="valueDate" type="text" class="form-styleV2" placeholder="Date of Birth">
-                        <i class="input-iconV2 uil uil-schedule"></i>
-                      </div>-->
                       <div class="form-groupV2 mt-2">
                         <mat-form-field appearance="fill" style="height: 65px; font-size: 14px; width: 100%;">
                           <mat-label style="font-size: 14px;">Select date of birth</mat-label>
@@ -82,15 +84,20 @@
                         
                       </div>
                       <div class="form-groupV2 mt-2">
-                        <input [(ngModel)]="valueJMBG" type="text" class="form-styleV2" placeholder="JMBG">
+                        <input [(ngModel)]="valueJMBG" type="text" class="form-styleV2" placeholder="JMBG"
+                        (ngModelChange)="validateJMBG()"
+                        [ngClass]="{'invalid-input':isJmbgInvalid}">
                         <i class="input-iconV2 uil uil-schedule"></i>
+                        <div *ngIf="isJmbgInvalid" class="error-message">
+                          JMBG must be exactly 13 characters long.
+                        </div>
                       </div>
                       <div class="form-groupV2 mt-2">
                         <input [(ngModel)]="valueCity" type="text" class="form-styleV2" placeholder="City">
                         <i class="input-iconV2 uil uil-schedule"></i>
                       </div>	
                    <!-- </div>-->
-                    <a class="btn2 mt-4" (click)="register()">Register</a>
+                    <a class="btn2 mt-4" (click)="register()"  [ngClass]="{'disabled-link': !isFormValid}" >Register</a>
                       </div>
                     </div>
                   </div>

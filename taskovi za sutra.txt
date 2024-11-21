@@ -1,9 +1,3 @@
-
-da se namesti koja pauza po redu i sta spada pod nju
-
-
-
-olovcica za sliku
 handluj registraciju
 uloge
-da se brise kad se odradi signup
+da se brise kad se odradi signup(mislim da jesam)

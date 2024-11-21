@@ -191,9 +191,10 @@ a:hover {
 
 .value {
   color: #ffeba7; /* Širina vrednosti */
-  text-align: left; /* Poravnanje vrednosti */
+  text-align: right; /* Poravnanje vrednosti */
   font-weight: normal;
   font-size: 38px;
+  margin-left: 20px;
 }
 .trip-planning-section {
   text-align: center;

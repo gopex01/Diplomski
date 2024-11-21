@@ -19,12 +19,14 @@ export class LoginComponent implements OnInit{
   valueUsernameReg:string;
   valuePasswordReg:string;
   valuePhoneNumber:string;
+  isPhoneNumberInvalid: boolean
   valueDate!:Date;
   valueJMBG:string;
+  isJmbgInvalid:boolean;
   tokenUser:string|null;
   valueCity:string;
   picker:Date|null;
-
+  isFormValid: boolean = false;
 
   ngOnInit(): void {
     
@@ -42,8 +44,10 @@ export class LoginComponent implements OnInit{
     this.valueUsernameReg="";
     this.valuePasswordReg="";
     this.valuePhoneNumber="";
+    this.isPhoneNumberInvalid=false;
     //this.valueDate="";
     this.valueJMBG="";
+    this.isJmbgInvalid=false;
     this.valueCity="";
     this.picker=null;
   }
@@ -55,13 +59,34 @@ export class LoginComponent implements OnInit{
   register()
   {
     const dateObject = new Date('Wed Nov 20 2024 00:00:00 GMT+0100 (Central European Standard Time)');
-const formattedDate = dateObject.toISOString().substring(0, 10);
+    const formattedDate = dateObject.toISOString().substring(0, 10);
     this.loginService.register(this.valueNameAndSurname,this.valueEmail,this.valueUsernameReg,this.valuePasswordReg,this.valuePhoneNumber,this.valueJMBG,formattedDate,this.valueCity);
+    this.valueNameAndSurname='';
+    this.valueEmail='';
+    this.valueUsernameReg='';
+    this.valuePasswordReg='';
+    this.valuePhoneNumber='';
+    this.valueJMBG='';
+    this.valueCity='';
   }
 
   forgotPassword()
   {
     this.dialog.open(DialogForgotPasswordComponent);
+  }
+  validatePhoneNumber() {
+    this.isPhoneNumberInvalid = this.valuePhoneNumber.length > 15;
+    this.validateForm(); // Revalidate the entire form
+  }
+  
+  validateJMBG() {
+    this.isJmbgInvalid = this.valueJMBG.length !== 13;
+    this.validateForm(); // Revalidate the entire form
+  }
+  validateForm() {
+    this.isFormValid = 
+      this.valuePhoneNumber.length <= 15 &&
+      this.valueJMBG.length === 13;
   }
 
 }

@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'',component:HomePageComponent},
   {path:'aboutUs',component:AboutUsComponent},
   {path:'personalTravels',component:ListPersonalTravelComponent},
-  {path:'personalTravelView',component:PersonalTravelViewComponent}
+  {path:'personalTravelView',component:PersonalTravelViewComponent},
 ];
 
 @NgModule({

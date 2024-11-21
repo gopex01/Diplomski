@@ -161,12 +161,46 @@ img{
   font-weight: bold;
 }
 .sve-granice{
-
-  margin-left: 7%;
+  margin-right: 10px;
 }
 .divzadugme{
-  width: 15%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
 }
-  
+.slikaPutevi{
+  width: 20%;
+  height: 20%;
+  border-radius: 10px;
+}
+.naslovDivPutevi{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.naslovDivPutevi h1{
+  text-align: center;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.naslovDivPutevi a{
+  margin-top: 20px;
+}
+.dugmeDesno{
+  padding: 10px;
+  background-color: #ffeba7;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 50px;
+  width: 40%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #1A4C62;
+  margin-bottom: 10px;
+}

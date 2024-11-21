@@ -69,8 +69,8 @@ export class MapComponent implements OnInit{
       const hours = Math.floor(totalTimeInMinutes / 60);
       const minutes = Math.floor(totalTimeInMinutes % 60);
       const popupContent = `
-      <b>Dužina rute:</b> ${(summary.totalDistance / 1000).toFixed(2)} km<br>
-      <b>Procenjeno vreme putovanja:</b> ${hours} sati i ${minutes} minuta`;
+      <b>Trip distance:</b> ${(summary.totalDistance / 1000).toFixed(2)} km<br>
+      <b>Travel time:</b> ${hours} hours i ${minutes} minutes`;
       L.marker(start)
       .addTo(this.map!)
       .bindPopup(popupContent)
@@ -124,7 +124,7 @@ export class MapComponent implements OnInit{
     
         filteredPOIs.forEach((element: any) => {
           const fuelStation = L.marker([element.lat, element.lon],{icon:customIcon}).addTo(this.map!);
-          fuelStation.bindPopup('Benzinska pumpa');
+          fuelStation.bindPopup('Petrol Station');
           fuelStation.on('click', () => {
             const stationCoords = L.latLng(element.lat, element.lon);
     
@@ -173,7 +173,7 @@ export class MapComponent implements OnInit{
             if (display) {
               filteredPOIs.forEach((element: any) => {
                 const fuelStation = L.marker([element.lat, element.lon], { icon: customIcon }).addTo(this.map!);
-                fuelStation.bindPopup('Benzinska pumpa');
+                fuelStation.bindPopup('Petrol station');
               });
             } else {
               if (filteredPOIs.length > 3) {
@@ -226,7 +226,7 @@ export class MapComponent implements OnInit{
 
       filteredAccommodations.forEach((element:any)=>{
         const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
-        accommodationMarker.bindPopup('prenociste');
+        accommodationMarker.bindPopup('accommodation');
         accommodationMarker.on('click',()=>{
           const stationCoords = L.latLng(element.lat, element.lon);
     
@@ -268,7 +268,7 @@ export class MapComponent implements OnInit{
 
       filteredAccommodations.forEach((element:any) => {
         const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
-        accommodationMarker.bindPopup('prenociste');
+        accommodationMarker.bindPopup('accommodation');
       });
       console.log('Filtrirana prenoćišta:', filteredAccommodations);
     
@@ -299,7 +299,7 @@ export class MapComponent implements OnInit{
   
         filteredRestaurants.forEach((element: any) => {
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
-          restaurantMarker.bindPopup('Restoran');
+          restaurantMarker.bindPopup('Restaurant');
           restaurantMarker.on('click',()=>{
             const stationCoords = L.latLng(element.lat, element.lon);
     
@@ -348,7 +348,7 @@ export class MapComponent implements OnInit{
         if(display){
         filteredRestaurants.forEach((element: any) => {
           const restaurantMarker = L.marker([element.lat, element.lon], { icon: restaurantIcon }).addTo(this.map!);
-          restaurantMarker.bindPopup('Restoran');
+          restaurantMarker.bindPopup('Restaurant');
         });
       }
       else{
@@ -401,7 +401,7 @@ export class MapComponent implements OnInit{
   
         filteredStations.forEach((element: any) => {
           const chargingMarker = L.marker([element.lat, element.lon], { icon: chargingStationIcon }).addTo(this.map!);
-          chargingMarker.bindPopup('Punjač za električne automobile');
+          chargingMarker.bindPopup('Charging station');
           chargingMarker.on('click',()=>{
             const stationCoords = L.latLng(element.lat, element.lon);
     
@@ -445,7 +445,7 @@ export class MapComponent implements OnInit{
   
         filteredRestAreas.forEach((element: any) => {
           const restAreaMarker = L.marker([element.lat, element.lon], { icon: restAreaIcon }).addTo(this.map!);
-          restAreaMarker.bindPopup('Odmorište');
+          restAreaMarker.bindPopup('Rest area');
         });
   
         console.log('Filtrirana odmorišta:', filteredRestAreas);

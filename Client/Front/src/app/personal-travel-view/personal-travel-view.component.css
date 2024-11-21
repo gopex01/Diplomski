@@ -1,123 +1,206 @@
 #map {
-    height: 70%; /* ili bilo koja visina koja ti odgovara */
-    width: 100%;
-  }
+  height: 70%; /* ili bilo koja visina koja ti odgovara */
+  width: 100%;
+}
 
 .dugme{
-  padding: 10px;
-    background-color: #ffeba7;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    height: 10%;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    color: #1A4C62;
-    margin-bottom: 10px;
+padding: 10px;
+  background-color: #ffeba7;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 50px;
+  width: 80%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #1A4C62;
+  margin-bottom: 10px;
 }
 .dugmici{
-  padding:20px;
-  background: radial-gradient(ellipse at bottom, #1A4C62 0%, #2A2E3B 100%);
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #ffeba7;
-  align-items: center;
-  font-size: 15px;
+padding:20px;
+background: radial-gradient(ellipse at bottom, #1A4C62 0%, #2A2E3B 100%);
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+color: #ffeba7;
+align-items: center;
+font-size: 15px;
 }
 .predlozi{
-  margin-top: 20px;
-  width: 30%;
-  border-radius: 2px;
+margin-top: 20px;
+width: 40%;
+border-radius: 2px;
+display: flex;
+flex-direction: column;
 }
 .Info{
-  display: flex;
-  flex-direction: row;
-  background: radial-gradient(ellipse at bottom, #3A4C62 0%, #2A2E3B 100%);
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  color: #ffeba7;
-  padding: 30px;
+display: flex;
+flex-direction: row;
+background: radial-gradient(ellipse at bottom, #3A4C62 0%, #2A2E3B 100%);
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+color: #ffeba7;
+padding: 30px;
 }
 .naslov{
-  text-align: center;
+text-align: center;
+border-bottom: 1px solid #ffeba7;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+}
+.naslov h1{
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
 }
 .putanjeDoSvih{
-  margin-top: 80px;
-  margin-left: 200px;
-  display: flex;
-  flex-direction:column;
-  padding:30px;
-  background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
-  border: 1px solid #ffeba7;
-  border-radius: 10px;
+margin-top: 80px;
+margin-left: 200px;
+display: flex;
+flex-direction:column;
+padding:30px;
+background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
+border: 1px solid #ffeba7;
+border-radius: 10px;
 }
 .predlozenaOdmaralista
 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Svaka kolona ima minimalnu širinu 200px */
-  gap: 10px; /* Razmak između elemenata */
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Svaka kolona ima minimalnu širinu 200px */
+gap: 10px; /* Razmak između elemenata */
+width: 70%;
+align-items: center;
 }
 .linija{
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 5px;
+width: 100%;
+margin-top: 5px;
+margin-bottom: 5px;
 }
 .hovi{
-  padding: 10px;
-  margin:10px;
-  text-decoration: underline;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
+padding: 10px;
+margin:10px;
+text-decoration: underline;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
 }
 .zadugme{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 3%;
-  margin-left: 10%;
-  width: 20%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+margin-top: 3%;
+margin-left: 10%;
+width: 20%;
 }
 .granica{
-  background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
-  border: 1px solid #ffeba7;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin:20px;
-  margin-bottom: 0px;
+background: radial-gradient(ellipse at bottom, #1d2732 0%, #323849 100%);
+border: 1px solid #ffeba7;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin:20px;
+margin-bottom: 0px;
 }
 .naslovGranica{
-  font-family:'Poppins', sans-serif;
-  font-weight: bold;
+font-family:'Poppins', sans-serif;
+font-weight: bold;
 }
 .putanjaDoGranicu{
-  font-family: 'Poppings',sans-serif;
-  font-weight: normal;
-  font-size: 20px;
-  margin-bottom: 10px;
+font-family: 'Poppings',sans-serif;
+font-weight: normal;
+font-size: 20px;
+margin-bottom: 10px;
 }
 .putanjaDoGranicu:acitve{
-  font-family: 'Poppings',sans-serif;
-  font-weight: normal;
-  color:#ffeba7;
+font-family: 'Poppings',sans-serif;
+font-weight: normal;
+color:#ffeba7;
 }
 .putanjaDoGranicu:visited{
-  font-family: 'Poppings',sans-serif;
-  font-weight: normal;
-  color:#ffeba7;
+font-family: 'Poppings',sans-serif;
+font-weight: normal;
+color:#ffeba7;
 }
 .naslovDiv{
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
 }
 img{
-  width: 10%;
-  height: 10%;
-  margin-top:2px;
-  margin-left: 2px;
+width: 10%;
+height: 10%;
+margin-top:2px;
+margin-left: 2px;
 }
-  
+.odmaralista{
+display: flex;
+flex-direction: row;
+width: 100%;
+margin-top: 20px;
+}
+.pumpe{
+width: 50%;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+.pumpe h1{
+text-align: center;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+}
+.restorani{
+width: 50%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.restorani h1{
+text-align: center;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+}
+.sve-granice{
+margin-right: 10px;
+}
+.divzadugme{
+width: 100%;
+display: flex;
+flex-direction: column;
+margin-top: 30px;
+align-items: center;
+}
+.slikaPutevi{
+width: 20%;
+height: 20%;
+border-radius: 10px;
+}
+.naslovDivPutevi{
+display: flex;
+justify-content: center;
+margin-bottom: 20px;
+padding: 10px;
+}
+.naslovDivPutevi h1{
+text-align: center;
+margin-top: 20px;
+margin-right: 20px;
+}
+.naslovDivPutevi a{
+margin-top: 20px;
+}
+.dugmeDesno{
+padding: 10px;
+background-color: #ffeba7;
+color: #000;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+height: 50px;
+width: 40%;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+color: #1A4C62;
+margin-bottom: 10px;
+}
