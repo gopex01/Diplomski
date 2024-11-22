@@ -73,7 +73,7 @@
             </div>
             <div class="info-row">
               <span class="label">Date Of Birth:</span>
-              <span class="value">{{(user$ | async)?.DateOfBirth || " "}}</span>
+              <span class="value">{{getFormattedDate((user$ | async)?.DateOfBirth || " ")}}</span>
             </div>
             <div class="info-row">
               <span class="label">City:</span>

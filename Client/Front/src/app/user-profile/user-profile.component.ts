@@ -110,5 +110,15 @@ export class UserProfileComponent implements OnInit{
     this.fileInput.nativeElement.click();
   }
 
+  getFormattedDate(date:Date|string|undefined):string{
+    if(!date)
+      return '';
+    
+    if(date instanceof Date){
+      return date.toISOString().slice(0,10);
+    }
+    return new Date(date).toISOString().slice(0,10);
+  }
+
 
 }

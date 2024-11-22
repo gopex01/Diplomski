@@ -10,7 +10,6 @@ export class ImageEffects
     {
 
     }
-
     loadImageURL$=createEffect(()=>this.actions$.pipe(
         ofType(ImageAcctions.getimageURL),
         mergeMap(()=>this.userService.getImageURL().pipe(
