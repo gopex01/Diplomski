@@ -10,7 +10,7 @@ import * as L from 'leaflet';
 })
 export class ListPersonalTravelComponent implements OnInit{
   
-  travelArr$:Observable<any>;
+  travelArr$:Observable<any>;//Niz sacuvanih korisnikovih putovanja
   constructor(private travelService:TravelService)
   {
     this.travelArr$=new Observable<any>();
@@ -19,12 +19,11 @@ export class ListPersonalTravelComponent implements OnInit{
 
     this.loadTravels();
     this.travelService.travelDeleted$.subscribe((deletedTravelId)=>{
-      this.loadTravels();
+      this.loadTravels();//u slucaju da se obrise putovanje uklanja ga sa ekrana i radi re-render stranice kako bi se osvezio prikaz
     })
-   // this.travelArr$=this.travelService.getPersonalTravel();
-    //this.travelArr$.subscribe();
+
   }
-  loadTravels()
+  loadTravels()//ucitava putovanja iz baze
   {
     this.travelArr$=this.travelService.getPersonalTravel();
     this.travelArr$.subscribe();

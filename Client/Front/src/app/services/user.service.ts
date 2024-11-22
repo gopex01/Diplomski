@@ -23,7 +23,7 @@ export class UserService {
   private dialog:MatDialog,
   private loginService:LoginService)
   { 
-    this.store.select(selectAuthToken).subscribe((token)=>{
+    this.store.select(selectAuthToken).subscribe((token)=>{//selektuje token iz store i stavlja ga u headers zbog autorizacije
       this.headers=new HttpHeaders({
         'Content-Type':'application/json',
         'Authorization': `Bearer ${token}`,
@@ -160,7 +160,7 @@ export class UserService {
     return this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{
       this.httpClient.patch(UserApi.updatePhoto+username,file, { responseType: 'text' })
       .subscribe(response=>{
-        this.store.dispatch(setimageURL({imageURL:response}))
+        this.store.dispatch(setimageURL({imageURL:response}))//postavlja url slike u store 
       }),(error:any)=>{
         console.log("greska update photo")
       }

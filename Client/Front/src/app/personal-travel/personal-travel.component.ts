@@ -14,7 +14,7 @@ export class PersonalTravelComponent implements OnInit{
   travel:TravelModel|null;
 
   @Output()
-  travelDeleted=new EventEmitter<string>();
+  travelDeleted=new EventEmitter<string>();//emituje dogadjaj ukoliko se personalno putovanje izbrise iz liste sacuvanih
   constructor(private router:Router,private travelService:TravelService)
   {
     this.travel=null;
@@ -26,7 +26,7 @@ export class PersonalTravelComponent implements OnInit{
   showDetail()
   {
     this.router.navigate(['personalTravelView'],
-      {queryParams:{start:this.travel?.startPoint,end:this.travel?.endPoint}}
+      {queryParams:{start:this.travel?.startPoint,end:this.travel?.endPoint}}//parametri za inicijalizaciju mape 
     );
   }
   delete()

@@ -13,9 +13,6 @@ export class Travel extends Document{
     username:string;
 
     @Prop({required:true})
-    accrossTheBorder:Boolean
-
-    @Prop({required:true})
     date:Date;
 
 }

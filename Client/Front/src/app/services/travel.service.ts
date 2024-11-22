@@ -39,7 +39,6 @@ export class TravelService {
     let newTravel:TravelModelDto={
       startPoint:start,
       endPoint:end,
-      accrossTheBorder:false,
       date:new Date()
     }
     return this.store.select(selectUsername).pipe(take(1)).subscribe((username)=>{

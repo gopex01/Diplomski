@@ -15,7 +15,6 @@ export class TravelService{
             startPoint:newTravel.startPoint,
             endPoint:newTravel.endPoint,
             username:user,
-            accrossTheBorder:newTravel.accrossTheBorder,
             date:Date.now()
         }
         const createdTravel=new this.travelModel(travel);
@@ -33,7 +32,7 @@ export class TravelService{
     }
     async findPersonalTravels(username:string)
     {
-        return this.travelModel.find({username:username}).exec();
+        return this.travelModel.find({username:username}).exec();//bez exec() find() nalazi samo query objekat a exec() ga konvertuje u promise
     }
     async deleteTravel(id:string)
     {

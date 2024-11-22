@@ -24,7 +24,7 @@ export class UserService{
                 user:'gopex2001@gmail.com',
                 pass:'fzau shuu mvdm jcgx',
             },
-            secure:true
+            secure:true//koristi SSL
         });
     }
 

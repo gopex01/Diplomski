@@ -12,14 +12,17 @@ import { TravelService } from '../services/travel.service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit{
-  startPoint:string;
-  endPoint:string;
+  startPoint:string;//inicijalizuje se kroz query iz search
+  endPoint:string;//inicijalizuje se kroz query iz search
   map?:L.Map;
-  selectedOption: any='None';
-  proposedPOIS:any[]=[];
-  proposedRestaurants:any[]=[];
+  selectedOption: any='None';//za radio buttoni da se izabere kakav prikaz zelimo na mapi
+  proposedPOIS:any[]=[];//preporucene pumpe za pauzu
+  proposedRestaurants:any[]=[];//preporuceni restorani za pauzu
 
-  constructor(private geocodingService:GeocodingService,private http:HttpClient,private route: ActivatedRoute,private travelService:TravelService)
+  constructor(private geocodingService:GeocodingService,
+    private http:HttpClient
+    ,private route: ActivatedRoute
+    ,private travelService:TravelService)
   {
     this.startPoint='';
     this.endPoint='';
@@ -69,8 +72,8 @@ export class MapComponent implements OnInit{
       const hours = Math.floor(totalTimeInMinutes / 60);
       const minutes = Math.floor(totalTimeInMinutes % 60);
       const popupContent = `
-      <b>Trip distance:</b> ${(summary.totalDistance / 1000).toFixed(2)} km<br>
-      <b>Travel time:</b> ${hours} hours i ${minutes} minutes`;
+      <b>Travel distance:</b> ${(summary.totalDistance / 1000).toFixed(2)} km<br>
+      <b>Travel time:</b> ${hours} hours and ${minutes} minutes`;
       L.marker(start)
       .addTo(this.map!)
       .bindPopup(popupContent)
@@ -107,9 +110,9 @@ export class MapComponent implements OnInit{
     
         const customIcon=L.icon({
           iconUrl:'../../assets/images/gas-station.png',
-          iconSize: [12, 12], // Prilagodi veličinu po potrebi
-          iconAnchor: [16, 32], // Podesi tačku sidrišta ako je potrebno
-          popupAnchor: [0, -32] // Podesi tačku za prikaz popup-a
+          iconSize: [12, 12], 
+          iconAnchor: [16, 32], 
+          popupAnchor: [0, -32] 
         });
         const filteredPOIs = data.elements.filter((element: any) => {
           if (element.type === 'node') {
@@ -139,7 +142,7 @@ export class MapComponent implements OnInit{
           });
         });
         
-        console.log('Filtrirani POI:', filteredPOIs);
+       // console.log('Filtrirani POI:', filteredPOIs);
       });
   }
   async getPOIsOnRouteV2(routeCoords: L.LatLng[], display: boolean,iteration:number): Promise<void> {
@@ -166,7 +169,7 @@ export class MapComponent implements OnInit{
               return false;
             });
             filteredPOIs.forEach((poi: any) => {
-              poi.iteration = iteration; // Dodavanje atributa 'iteration'
+              poi.iteration = iteration; // Dodavanje atributa 'iteration' da bi znali koji je redni broj pauze
             });
         
   
@@ -191,7 +194,7 @@ export class MapComponent implements OnInit{
                 (obj, index, self) =>
                   index === self.findIndex(o => o.lat === obj.lat && o.lon === obj.lon)
               );
-              console.log('Proposed pumpe', this.proposedPOIS);
+              //console.log('Proposed pumpe', this.proposedPOIS);
               
             }
             resolve(); // Signalizira završetak
@@ -207,9 +210,9 @@ export class MapComponent implements OnInit{
       const radius=5000;
       const accomodationIcon=L.icon({
         iconUrl: '../../assets/images/hotel.png', // Putanja do ikone prenoćišta
-        iconSize: [16, 16], // Prilagodi veličinu po potrebi
-        iconAnchor: [8, 8], // Podesi tačku sidrišta
-        popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+        iconSize: [16, 16], 
+        iconAnchor: [8, 8], 
+        popupAnchor: [0, -8] 
       });
       
       const filteredAccommodations=data.elements.filter((element:any)=>{
@@ -230,17 +233,17 @@ export class MapComponent implements OnInit{
         accommodationMarker.on('click',()=>{
           const stationCoords = L.latLng(element.lat, element.lon);
     
-            // Kreiraj novu rutu do benzinske pumpe
+            // Kreiraj novu rutu do prenocista
             L.Routing.control({
               waypoints: [
-                routeCoords[0], // Početna tačka (prva iz postojeće rute)
-                stationCoords   // Benzinska pumpa
+                routeCoords[0], // Početna tačka (prva iz postojece rute)
+                stationCoords   // prenociste
               ],
               routeWhileDragging: true
             }).addTo(this.map!);
         });
       });
-      console.log('Filtrirana prenoćišta:', filteredAccommodations);
+      //console.log('Filtrirana prenoćišta:', filteredAccommodations);
     });
   }
   showAccmmodationsOnRouteV2(routeCoords:L.LatLng[],display:boolean){
@@ -249,9 +252,9 @@ export class MapComponent implements OnInit{
       const radius=15000;
       const accomodationIcon=L.icon({
         iconUrl: '../../assets/images/hotel.png', // Putanja do ikone prenoćišta
-        iconSize: [16, 16], // Prilagodi veličinu po potrebi
-        iconAnchor: [8, 8], // Podesi tačku sidrišta
-        popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+        iconSize: [16, 16], 
+        iconAnchor: [8, 8], 
+        popupAnchor: [0, -8] 
       });
       
       const filteredAccommodations=data.elements.filter((element:any)=>{
@@ -270,7 +273,7 @@ export class MapComponent implements OnInit{
         const accommodationMarker=L.marker([element.lat,element.lon],{icon:accomodationIcon}).addTo(this.map!);
         accommodationMarker.bindPopup('accommodation');
       });
-      console.log('Filtrirana prenoćišta:', filteredAccommodations);
+      //console.log('Filtrirana prenoćišta:', filteredAccommodations);
     
     });
   }
@@ -281,9 +284,9 @@ export class MapComponent implements OnInit{
   
         const restaurantIcon = L.icon({
           iconUrl: '../../assets/images/cutlery.png', // Putanja do ikone restorana
-          iconSize: [16, 16], // Prilagodi veličinu po potrebi
-          iconAnchor: [8, 8], // Podesi tačku sidrišta
-          popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+          iconSize: [16, 16], 
+          iconAnchor: [8, 8], 
+          popupAnchor: [0, -8] 
         });
   
         const filteredRestaurants = data.elements.filter((element: any) => {
@@ -303,18 +306,18 @@ export class MapComponent implements OnInit{
           restaurantMarker.on('click',()=>{
             const stationCoords = L.latLng(element.lat, element.lon);
     
-            // Kreiraj novu rutu do benzinske pumpe
+            // Kreiraj novu rutu do restorana
             L.Routing.control({
               waypoints: [
-                routeCoords[0], // Početna tačka (prva iz postojeće rute)
-                stationCoords   // Benzinska pumpa
+                routeCoords[0], // Početna tačka (prva iz postojece rute)
+                stationCoords   //restoran
               ],
               routeWhileDragging: true
             }).addTo(this.map!);
           })
         });
   
-        console.log('Filtrirani restorani:', filteredRestaurants);
+       // console.log('Filtrirani restorani:', filteredRestaurants);
       });
   }
   async showRestaurantsOnRouteV2(routeCoords: L.LatLng[],display:boolean,iteration:number) {
@@ -490,7 +493,7 @@ export class MapComponent implements OnInit{
       const intervalCoords=routeCoords[index];
       //Prikazi odmorista u blizini intervalne tacke
       let coordsArr:L.LatLng[]=[start,intervalCoords];
-      console.log('redni broj iteracije',i);
+      //console.log('redni broj iteracije',i);
       await this.getPOIsOnRouteV2(coordsArr,display,i);
       //azuriraj vreme za sledeci interval sa dodatkom pauze
       currentIntervalTime+=drivingIntervalInSeconds+breakTimeInSeconds;

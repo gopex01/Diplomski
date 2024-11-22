@@ -12,21 +12,21 @@ import { DialogForgotPasswordComponent } from '../dialog-forgot-password/dialog-
 })
 export class LoginComponent implements OnInit{
 
-  valueUsername:string;
-  valuePassword:string;
-  valueNameAndSurname:string;
-  valueEmail:string;
-  valueUsernameReg:string;
-  valuePasswordReg:string;
-  valuePhoneNumber:string;
-  isPhoneNumberInvalid: boolean
-  valueDate!:Date;
-  valueJMBG:string;
-  isJmbgInvalid:boolean;
-  tokenUser:string|null;
-  valueCity:string;
-  picker:Date|null;
-  isFormValid: boolean = false;
+  valueUsername:string;//polje za vrednost username-a prilikom login-a
+  valuePassword:string;//--||-- passworda
+  valueNameAndSurname:string;//registracija
+  valueEmail:string;//registracija
+  valueUsernameReg:string;//registracija
+  valuePasswordReg:string;//registracija
+  valuePhoneNumber:string;//registracija
+  isPhoneNumberInvalid: boolean;////registracija proverava da li je broj telefona u odgovarajucem formatu(duzina)
+  valueDate!:Date;//registracija
+  valueJMBG:string;//registracija
+  isJmbgInvalid:boolean;////registracija proverava da li je JMBG u odgovarajucem formatu(duzina)
+  tokenUser:string|null;//mislim da je suvisan
+  valueCity:string;//registracija
+  picker:Date|null;//registracija
+  isFormValid: boolean = false;//sluzi da blokira dugme ukoliko jmbg i broj telefona nisu odgovarajuci
 
   ngOnInit(): void {
     
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit{
     const dateObject = new Date('Wed Nov 20 2024 00:00:00 GMT+0100 (Central European Standard Time)');
     const formattedDate = dateObject.toISOString().substring(0, 10);
     this.loginService.register(this.valueNameAndSurname,this.valueEmail,this.valueUsernameReg,this.valuePasswordReg,this.valuePhoneNumber,this.valueJMBG,formattedDate,this.valueCity);
-    this.valueNameAndSurname='';
+    this.valueNameAndSurname='';//brisu se polja nakon registracije
     this.valueEmail='';
     this.valueUsernameReg='';
     this.valuePasswordReg='';

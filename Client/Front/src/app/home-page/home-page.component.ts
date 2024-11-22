@@ -10,7 +10,7 @@ export class HomePageComponent {
   @ViewChild('heroSection') heroSection!: ElementRef;
   @ViewChild('aboutSection') aboutSection!: ElementRef;
 
-  scrollToSection(section: string) {
+  scrollToSection(section: string) {//animacija scrolla prilikom klika na aboutUs i Home
     let target: HTMLElement | null = null;
 
     if (section === 'hero') {

@@ -31,7 +31,7 @@ export class GeocodingService {
       }
     });
   }
-  getPOIsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {
+  getPOIsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {//pumpe
     const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
     const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
 
@@ -40,7 +40,7 @@ export class GeocodingService {
     return this.http.get(overpassUrl);
   }
 
-  getAccomodationsOnRoute(start:L.LatLng,end:L.LatLng)
+  getAccomodationsOnRoute(start:L.LatLng,end:L.LatLng)//prenocista
   {
     const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
   const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
@@ -56,7 +56,7 @@ export class GeocodingService {
 
     return this.http.get(overpassUrl);
   }
-  getRestaurantsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {
+  getRestaurantsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {//restorani
     const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
     const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
   
@@ -69,7 +69,7 @@ export class GeocodingService {
   
     return this.http.get(overpassUrl);
   }
-  getChargingStationsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {
+  getChargingStationsOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {//punjaci
     const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
     const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
   
@@ -83,7 +83,7 @@ export class GeocodingService {
     return this.http.get(overpassUrl);
   }
   
-  getRestAreasOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {
+  getRestAreasOnRoute(start: L.LatLng, end: L.LatLng): Observable<any> {//odmorista
   const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
   const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
 
