@@ -1,3 +1,2 @@
-handluj registraciju
+handluj registraciju(odradjeno samo jos da se blokira dugme ako ne neki input prazan)
 uloge
-da se brise kad se odradi signup(mislim da jesam)

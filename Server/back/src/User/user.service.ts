@@ -28,7 +28,7 @@ export class UserService{
         });
     }
 
-    async addUser(newUser:UserDto):Promise<string>{
+    async addUser(newUser:UserDto){
         const hashedPass=await bcrypt.hash(newUser.password,10);
         const nUser:UserEntity=this.userRepository.create({
             NameAndSurname:newUser.nameAndsurname,
@@ -47,7 +47,7 @@ export class UserService{
 
             await this.userRepository.save(nUser);
             await this.sendVerificationEmail(newUser.username,newUser.email);
-            return "Success created account";
+            return {message:"Success created account"};
         }
         catch(error){
             if(error.code='23505')
@@ -56,9 +56,9 @@ export class UserService{
                     if (constraint) {
                       const columns = constraint[1].split(', ');
                      
-                      return `User with ${columns.join(', ')} is already exist `
+                      return {message:`User with ${columns.join(', ')} is already exist`}
                     }
-                    return error;
+                    //return error;
                 }
             console.log(error);
         }

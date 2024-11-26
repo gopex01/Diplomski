@@ -86,7 +86,11 @@ export class LoginComponent implements OnInit{
   validateForm() {
     this.isFormValid = 
       this.valuePhoneNumber.length <= 15 &&
-      this.valueJMBG.length === 13;
+      this.valueJMBG.length === 13 &&
+      this.valueNameAndSurname.length > 0 &&
+      this.valueEmail.length > 0 &&
+      this.valueUsernameReg.length > 0 &&
+      this.valuePasswordReg.length > 0;
   }
 
 }

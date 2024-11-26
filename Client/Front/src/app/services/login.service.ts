@@ -8,6 +8,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { DialogSuccessRegistrationComponent } from '../dialog-success-registration/dialog-success-registration.component';
 import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 import { DialogLoginErrorComponent } from '../dialog-login-error/dialog-login-error.component';
+import { DialogSuccessChangedComponent } from '../dialog-success-changed/dialog-success-changed.component';
+import { MatDialog } from '@angular/material/dialog';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +20,8 @@ export class LoginService {
   constructor(private httpClient:HttpClient,
     private router:Router,
     private store:Store,
-    private dialog:Dialog
+    private dialog:Dialog,
+    private matDialog:MatDialog
   )
   {
     this.headers=new HttpHeaders({
@@ -55,17 +58,35 @@ export class LoginService {
       city:cit
     }
     console.log(data);
-    this.httpClient.post(SingUp.register,data,{headers:this.headers,responseType:'text'}).subscribe((response:any)=>{
-      if(response=='Success created account')
+    this.httpClient.post(SingUp.register,data,{headers:this.headers}).subscribe((response:any)=>{
+      console.log('Response',response);
+      console.log('Meesage',response.message)
+      if(response.message=='Success created account')
       {
         this.dialog.open(DialogSuccessRegistrationComponent);
       }
       else{
-        this.dialog.open(DialogErrorComponent);
+        console.log('Uso sam u prvi else');
+        if(response.message=="User with \"Username\" is already exist")
+        {
+          this.matDialog.open(DialogSuccessChangedComponent,{data:{message:"Username is already taken."}});
+        }
+        else{
+          console.log('uso sam u drugi else')
+          if(response.message=="User with \"Email\" is already exist")
+            {
+              this.matDialog.open(DialogSuccessChangedComponent,{data:{message:"Email is already taken"}});
+            }
+            else{
+    
+              this.dialog.open(DialogErrorComponent);
+            }
+        }
+        
       }
 
     },(error)=>{
-      this.dialog.open(DialogErrorComponent);
+      //this.dialog.open(DialogErrorComponent);
     }
   );
   }
