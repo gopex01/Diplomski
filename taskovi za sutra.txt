@@ -1,1 +1,1 @@
-proveri svaki fajl
+dodaj delete term
