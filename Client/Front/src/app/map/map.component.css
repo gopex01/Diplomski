@@ -110,6 +110,8 @@
   font-weight: normal;
   font-size: 20px;
   margin-bottom: 10px;
+  text-decoration: underline;  /* Podvlači tekst */
+  cursor: pointer;  /* Menja kursor u ruku kad se pređe preko linka */
 }
 .putanjaDoGranicu:acitve{
   font-family: 'Poppings',sans-serif;

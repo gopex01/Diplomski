@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OpenCageResponse } from '../models/opencage.interface';
 import * as L from 'leaflet';
+import { OpenCage } from 'leaflet-control-geocoder/dist/geocoders';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,6 @@ export class GeocodingService {
     const url=`https://api.opencagedata.com/geocode/v1/json?q=${cityName}&key=${this.apiKeyOpenCage}`;
     return this.http.get<OpenCageResponse>(url);
   }
-
   getRoute(start: L.LatLng, end: L.LatLng) {
     const url = `https://api.openrouteservice.org/v2/directions/driving-car?start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 

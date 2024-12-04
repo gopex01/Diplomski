@@ -9,6 +9,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ListPersonalTravelComponent } from './list-personal-travel/list-personal-travel.component';
 import { PersonalTravelViewComponent } from './personal-travel-view/personal-travel-view.component';
+import { KameraComponent } from './kamera/kamera.component';
+import { CameraCalaComponent } from './camera-cala/camera-cala.component';
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path:'aboutUs',component:AboutUsComponent},
   {path:'personalTravels',component:ListPersonalTravelComponent},
   {path:'personalTravelView',component:PersonalTravelViewComponent},
+  {path:'kamera',component:KameraComponent},
+  {path:'cala',component:CameraCalaComponent}
 ];
 
 @NgModule({

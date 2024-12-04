@@ -6,6 +6,24 @@ import { GeocodingService } from '../services/geocoding.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TravelService } from '../services/travel.service';
+import * as turf from '@turf/turf';
+import { MatDialog } from '@angular/material/dialog';
+import { Dialog } from '@angular/cdk/dialog';
+import { CameraCalaComponent } from '../camera-cala/camera-cala.component';
+import { CameraKelebijaComponent } from '../camera-kelebija/camera-kelebija.component';
+import { CameraHorgosComponent } from '../camera-horgos/camera-horgos.component';
+import { CameraJabukaComponent } from '../camera-jabuka/camera-jabuka.component';
+import { CameraGostunComponent } from '../camera-gostun/camera-gostun.component';
+import { CameraBatrovciComponent } from '../camera-batrovci/camera-batrovci.component';
+import { CameraSidComponent } from '../camera-sid/camera-sid.component';
+import { CameraVatinComponent } from '../camera-vatin/camera-vatin.component';
+import { CameraKotromanComponent } from '../camera-kotroman/camera-kotroman.component';
+import { CameraZvornikComponent } from '../camera-zvornik/camera-zvornik.component';
+import { CameraRacaComponent } from '../camera-raca/camera-raca.component';
+import { CameraTrbusnicaComponent } from '../camera-trbusnica/camera-trbusnica.component';
+import { CameraVrskaCukaComponent } from '../camera-vrska-cuka/camera-vrska-cuka.component';
+import { CameraGradinaComponent } from '../camera-gradina/camera-gradina.component';
+import { CameraPresevoComponent } from '../camera-presevo/camera-presevo.component';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -19,10 +37,27 @@ export class MapComponent implements OnInit{
   proposedPOIS:any[]=[];//preporucene pumpe za pauzu
   proposedRestaurants:any[]=[];//preporuceni restorani za pauzu
 
+  bulgariaGeoJson:any;
+  bosniaGeoJson:any;
+  croatiaGeoJson:any;
+  hungaryGeoJson:any;
+  macedoniaGeoJson:any;
+  montenegroGeoJson:any;
+  rumunyGeoJson:any;
+
+  isRouteInBulgaria:boolean=false;
+  isRouteInBosnia:boolean=false;
+  isRouteInCroatia:boolean=false;
+  isRouteInHungary:boolean=false;
+  isRouteInMacedonia:boolean=false;
+  isRouteInMontenegro:boolean=false;
+  isRouteInRumuny:boolean=false;
+
   constructor(private geocodingService:GeocodingService,
     private http:HttpClient
     ,private route: ActivatedRoute
-    ,private travelService:TravelService)
+    ,private travelService:TravelService,
+    private dialog:Dialog)
   {
     this.startPoint='';
     this.endPoint='';
@@ -34,6 +69,7 @@ export class MapComponent implements OnInit{
     try {
       const startCoords = await this.geocodingService.getCoordinates(this.startPoint).toPromise();
       const endCoords = await this.geocodingService.getCoordinates(this.endPoint).toPromise();
+      console.log('start cords odgovor ',startCoords);
 
       const startLatLng = L.latLng(startCoords!.results[0].geometry.lat, startCoords!.results[0].geometry.lng);
       const endLatLng = L.latLng(endCoords!.results[0].geometry.lat, endCoords!.results[0].geometry.lng);
@@ -63,10 +99,27 @@ export class MapComponent implements OnInit{
       show:false,
     }).addTo(this.map!);
 
-    routingControl.on('routesfound',(e:any)=>{
+    routingControl.on('routesfound', async (e:any)=>{
       const routes=e.routes;
       const summary=routes[0].summary;
       const routeCoords=routes[0].coordinates;
+
+      await this.loadBulgariaJson();
+      await this.loadBosniaJson();
+      await this.loadCroatiaJson();
+      await this.loadHungaryJson();
+      await this.loadMacedoniaJson();
+      await this.loadMontenegroJson();
+      await this.loadRumunyJson();
+
+      this.isRouteInBulgaria=this.checkRouteInCountry(routeCoords,this.bulgariaGeoJson);
+      this.isRouteInBosnia=this.checkRouteInCountry(routeCoords,this.bosniaGeoJson);
+      this.isRouteInCroatia=this.checkRouteInCountry(routeCoords,this.croatiaGeoJson);
+      this.isRouteInHungary=this.checkRouteInCountry(routeCoords,this.hungaryGeoJson);
+      this.isRouteInMacedonia=this.checkRouteInCountry(routeCoords,this.macedoniaGeoJson);
+      this.isRouteInMontenegro=this.checkRouteInCountry(routeCoords,this.montenegroGeoJson);
+      this.isRouteInRumuny=this.checkRouteInCountry(routeCoords,this.rumunyGeoJson);
+      
       const totalTimeInMinutes = summary.totalTime / 60;
       const totalTimeInSeconds=summary.totalTime;
       const hours = Math.floor(totalTimeInMinutes / 60);
@@ -532,6 +585,150 @@ export class MapComponent implements OnInit{
     this.calculateRoute(this.selectedOption);
   }
   
+  checkIfPointInCountry(lat:number,lng:number,countryGeoJson:any):boolean{
+    const point=turf.point([lng,lat]);
+    const polygon=turf.polygon(countryGeoJson.features[0].geometry.coordinates);
+    return turf.booleanPointInPolygon(point,polygon);
+  }
+
+  checkRouteInCountry(routeCoords:L.LatLng[],countryGeoJson:any):boolean{
+    return routeCoords.some(coord=>
+      this.checkIfPointInCountry(coord.lat,coord.lng,countryGeoJson)
+    );
+  }
+
+  async loadBulgariaJson(): Promise<any> {
+    try {
+      const response = await fetch('../../assets/geojson/bulgaria.json');
+      this.bulgariaGeoJson = await response.json();
+      
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+
+  async loadHungaryJson():Promise<any>{
+    try {
+      const response = await fetch('../../assets/geojson/hungary.json');
+      this.hungaryGeoJson = await response.json();
+     
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+
+  async loadCroatiaJson():Promise<any>
+  {
+    try {
+      const response = await fetch('../../assets/geojson/croatia.json');
+      this.croatiaGeoJson = await response.json();
+      
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+  
+  async loadBosniaJson():Promise<any>
+  {
+    try {
+      const response = await fetch('../../assets/geojson/bosnia.json');
+      this.bosniaGeoJson = await response.json();
+      
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+
+  async loadMontenegroJson():Promise<any>
+  {
+    try {
+      const response = await fetch('../../assets/geojson/montenegro.json');
+      this.montenegroGeoJson = await response.json();
+     
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+  async loadMacedoniaJson():Promise<any>
+  {
+    try {
+      const response = await fetch('../../assets/geojson/macedonia.json');
+      this.macedoniaGeoJson = await response.json();
+      
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+  async loadRumunyJson():Promise<any>
+  {
+    try {
+      const response = await fetch('../../assets/geojson/rumuny.json');
+      this.rumunyGeoJson = await response.json();
+    } catch (error) {
+      console.error('Greška prilikom učitavanja GeoJSON:', error);
+    }
+  }
+  
+  openCala()
+  {
+    this.dialog.open(CameraCalaComponent);
+  }
+  openKelebija()
+  {
+    this.dialog.open(CameraKelebijaComponent);
+  }
+  openHorgos()
+  {
+    this.dialog.open(CameraHorgosComponent);
+  }
+  openJabuka()
+  {
+    this.dialog.open(CameraJabukaComponent);
+  }
+  openGostun()
+  {
+    this.dialog.open(CameraGostunComponent);
+  }
+  openBatrovci()
+  {
+    this.dialog.open(CameraBatrovciComponent);
+  }
+  openSid()
+  {
+    this.dialog.open(CameraSidComponent);
+  }
+  openVatin()
+  {
+    this.dialog.open(CameraVatinComponent);
+  }
+  openKotroman()
+  {
+    this.dialog.open(CameraKotromanComponent);
+  }
+  openZvornik()
+  {
+    this.dialog.open(CameraZvornikComponent);
+  }
+  openRaca()
+  {
+    this.dialog.open(CameraRacaComponent);
+  }
+  openTrbusnica()
+  {
+    this.dialog.open(CameraTrbusnicaComponent);
+  }
+  openVrskaCuka()
+  {
+    this.dialog.open(CameraVrskaCukaComponent);
+  }
+  openGradina()
+  {
+    this.dialog.open(CameraGradinaComponent);
+  }
+  openPresevo()
+  {
+    this.dialog.open(CameraPresevoComponent);
+  }
   ngOnInit() {
     
     this.route.queryParams.subscribe(params=>{

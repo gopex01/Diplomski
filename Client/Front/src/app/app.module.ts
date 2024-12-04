@@ -40,6 +40,22 @@ import { PersonalTravelComponent } from './personal-travel/personal-travel.compo
 import { ListPersonalTravelComponent } from './list-personal-travel/list-personal-travel.component';
 import { PersonalTravelViewComponent } from './personal-travel-view/personal-travel-view.component';
 import { MapForRestComponent } from './map-for-rest/map-for-rest.component';
+import { KameraComponent } from './kamera/kamera.component';
+import { CameraCalaComponent } from './camera-cala/camera-cala.component';
+import { CameraKelebijaComponent } from './camera-kelebija/camera-kelebija.component';
+import { CameraHorgosComponent } from './camera-horgos/camera-horgos.component';
+import { CameraJabukaComponent } from './camera-jabuka/camera-jabuka.component';
+import { CameraGostunComponent } from './camera-gostun/camera-gostun.component';
+import { CameraBatrovciComponent } from './camera-batrovci/camera-batrovci.component';
+import { CameraSidComponent } from './camera-sid/camera-sid.component';
+import { CameraVatinComponent } from './camera-vatin/camera-vatin.component';
+import { CameraKotromanComponent } from './camera-kotroman/camera-kotroman.component';
+import { CameraZvornikComponent } from './camera-zvornik/camera-zvornik.component';
+import { CameraRacaComponent } from './camera-raca/camera-raca.component';
+import { CameraTrbusnicaComponent } from './camera-trbusnica/camera-trbusnica.component';
+import { CameraVrskaCukaComponent } from './camera-vrska-cuka/camera-vrska-cuka.component';
+import { CameraGradinaComponent } from './camera-gradina/camera-gradina.component';
+import { CameraPresevoComponent } from './camera-presevo/camera-presevo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +79,22 @@ import { MapForRestComponent } from './map-for-rest/map-for-rest.component';
     ListPersonalTravelComponent,
     PersonalTravelViewComponent,
     MapForRestComponent,
+    KameraComponent,
+    CameraCalaComponent,
+    CameraKelebijaComponent,
+    CameraHorgosComponent,
+    CameraJabukaComponent,
+    CameraGostunComponent,
+    CameraBatrovciComponent,
+    CameraSidComponent,
+    CameraVatinComponent,
+    CameraKotromanComponent,
+    CameraZvornikComponent,
+    CameraRacaComponent,
+    CameraTrbusnicaComponent,
+    CameraVrskaCukaComponent,
+    CameraGradinaComponent,
+    CameraPresevoComponent,
   ],
   imports: [
     BrowserModule,

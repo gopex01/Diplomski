@@ -1,2 +1,1 @@
-handluj registraciju(odradjeno samo jos da se blokira dugme ako ne neki input prazan)
-uloge
+proveri svaki fajl
