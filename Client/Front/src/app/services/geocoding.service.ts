@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { OpenCageResponse } from '../models/opencage.interface';
 import * as L from 'leaflet';
 import { OpenCage } from 'leaflet-control-geocoder/dist/geocoders';
@@ -96,6 +96,66 @@ export class GeocodingService {
 
   return this.http.get(overpassUrl);
 }
+
+getRoadWorks(start: L.LatLng, end: L.LatLng): Observable<any> {
+  const apiUrl = 'https://overpass-api.de/api/interpreter';
+
+  // Osiguramo se da su koordinate u pravom redosledu
+  const southLat = Math.min(start.lat, end.lat); // Juzna sirina
+  const northLat = Math.max(start.lat, end.lat); // Severna srina
+  const westLng = Math.min(start.lng, end.lng);  // Zapadna dužina
+  const eastLng = Math.max(start.lng, end.lng);  // Istocna dužina
+
+  //  Overpass upit
+  const query = `
+    [out:json];
+    (
+      way["highway"="construction"](${southLat},${westLng},${northLat},${eastLng});
+      
+    );
+    out body;
+    >;
+    out skel qt;
+  `;
+
+  return this.http.post(apiUrl, query, { responseType: 'json' });
+}
+
+
+
+
+
+
+getTrafficIncidentsOnRoute(start: L.LatLng, end: L.LatLng, type: string): Observable<any[]> {
+  const southWest = L.latLng(Math.min(start.lat, end.lat), Math.min(start.lng, end.lng));
+  const northEast = L.latLng(Math.max(start.lat, end.lat), Math.max(start.lng, end.lng));
+
+  const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];
+    (
+      node[highway=construction](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+      node[highway=roadworks](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+      node[highway=traffic_signals](${southWest.lat},${southWest.lng},${northEast.lat},${northEast.lng});
+    );
+    out;`;
+
+  return this.http.get<any>(overpassUrl).pipe(
+    // Obrada podataka
+    map(response => response.elements || []), // Uzmi samo elemente iz odgovora
+    map(elements => 
+      elements
+        .filter((item:any) => item.tags && item.tags.highway === type) // Filtriraj po tipu
+        .map((item:any) => ({
+          id: item.id,
+          type: item.tags.highway,
+          coordinates: {
+            lat: item.lat,
+            lon: item.lon
+          }
+        }))
+    )
+  );
+}
+
 
 
 

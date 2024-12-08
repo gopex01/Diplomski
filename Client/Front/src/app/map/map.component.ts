@@ -24,6 +24,7 @@ import { CameraTrbusnicaComponent } from '../camera-trbusnica/camera-trbusnica.c
 import { CameraVrskaCukaComponent } from '../camera-vrska-cuka/camera-vrska-cuka.component';
 import { CameraGradinaComponent } from '../camera-gradina/camera-gradina.component';
 import { CameraPresevoComponent } from '../camera-presevo/camera-presevo.component';
+import axios from 'axios';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -36,6 +37,8 @@ export class MapComponent implements OnInit{
   selectedOption: any='None';//za radio buttoni da se izabere kakav prikaz zelimo na mapi
   proposedPOIS:any[]=[];//preporucene pumpe za pauzu
   proposedRestaurants:any[]=[];//preporuceni restorani za pauzu
+  roadWorks:any[]=[];
+  popUPSet:boolean=true;
 
   bulgariaGeoJson:any;
   bosniaGeoJson:any;
@@ -96,14 +99,29 @@ export class MapComponent implements OnInit{
      const routingControl=L.Routing.control({
       waypoints: [start, end],//pocetna i kranja tacka za crtanje
       routeWhileDragging: true,
-      show:false,
+      show:this.popUPSet,
+      collapsible:this.popUPSet,
     }).addTo(this.map!);
-
+    this.popUPSet=false;
     routingControl.on('routesfound', async (e:any)=>{
       const routes=e.routes;
       const summary=routes[0].summary;
       const routeCoords=routes[0].coordinates;
-
+      this.geocodingService.getRoadWorks(start,end).subscribe({
+        next:(data)=>{
+          console.log('Radovi',data);
+          this.roadWorks=data.elements;
+        },
+        error:(err)=>{
+          console.error('Greska s radovi',err);
+        }
+      })
+      /*const incidentType = 'construction'
+      this.geocodingService.getTrafficIncidentsOnRoute(start,end,incidentType).subscribe((data)=>{
+        console.log('Incidenti',data);
+      },(error)=>{
+        console.error('greska pri preuzimanju',error);
+      })*/
       await this.loadBulgariaJson();
       await this.loadBosniaJson();
       await this.loadCroatiaJson();
@@ -148,6 +166,9 @@ export class MapComponent implements OnInit{
         case 'ChargingStations':
           this.showChargingStationsOnRoute(routeCoords);
           break;
+        case 'RoadWorks':
+          this.showRoadWorksOnRoute(routeCoords);
+          break;
         default:
           console.log('greska u switchu');
       }   
@@ -190,6 +211,7 @@ export class MapComponent implements OnInit{
                 routeCoords[0], // Početna tačka (prva iz postojeće rute)
                 stationCoords   // Benzinska pumpa
               ],
+            
               routeWhileDragging: true
             }).addTo(this.map!);
           });
@@ -290,7 +312,8 @@ export class MapComponent implements OnInit{
             L.Routing.control({
               waypoints: [
                 routeCoords[0], // Početna tačka (prva iz postojece rute)
-                stationCoords   // prenociste
+                stationCoords,   // prenociste
+                
               ],
               routeWhileDragging: true
             }).addTo(this.map!);
@@ -432,6 +455,42 @@ export class MapComponent implements OnInit{
     });
   });
 }
+
+  showRoadWorksOnRoute(routeCoords:L.LatLng[]){
+    const customIcon = L.icon({
+      iconUrl: '../../assets/images/road-work.png', // Putanja do ikone restorana
+      iconSize: [22, 22], // Prilagodi veličinu po potrebi
+      iconAnchor: [8, 8], // Podesi tačku sidrišta
+      popupAnchor: [0, -8] // Podesi tačku za prikaz popup-a
+    });
+    const filteredRoadWorks=this.roadWorks.filter((element:any)=>{
+      if(element.type==='node'){
+      const point=L.latLng(element.lat,element.lon);
+      return routeCoords.some(coord=>{
+        const distance=point.distanceTo(coord);
+        return distance<=1000;
+      });
+      }
+      return false;
+    });
+    console.log('Filtrirani radovi',filteredRoadWorks);
+    filteredRoadWorks.forEach((element:any)=>{
+      console.log('Svi elementi');
+      if(element.type==='node')
+      {
+        const coords=L.latLng(element.lat,element.lon);
+        L.marker(coords, { icon: customIcon }).addTo(this.map!).bindPopup('Works at this place');
+      } else if (element.type === 'way' && element.geometry) {
+        // Dodaj liniju za way
+        const wayCoords = element.geometry.map((point: any) => L.latLng(point.lat, point.lon));
+        L.polyline(wayCoords, { color: 'green', weight: 4 }).addTo(this.map!).bindPopup('road under construction');
+      } else if (element.type === 'relation') {
+        // Za relation možeš dodatno obraditi ako je potrebno
+        console.log('Relacija u izgradnji', element);
+      }
+      }
+    )
+  }
   showChargingStationsOnRoute(routeCoords: L.LatLng[]) {
     this.geocodingService.getChargingStationsOnRoute(routeCoords[0], routeCoords[routeCoords.length - 1])
       .subscribe((data: any) => {
@@ -729,6 +788,7 @@ export class MapComponent implements OnInit{
   {
     this.dialog.open(CameraPresevoComponent);
   }
+  
   ngOnInit() {
     
     this.route.queryParams.subscribe(params=>{

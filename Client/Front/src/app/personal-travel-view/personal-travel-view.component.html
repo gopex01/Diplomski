@@ -19,6 +19,10 @@
       Show Charging Stations
     </label>
     <label>
+      <input type="radio" id="option4" name="option1" [(ngModel)]="selectedOption" value="RoadWorks" (change)="onOptionChange()">
+      Show Road works
+    </label>
+    <label>
       <input type="radio" id="option5" name="option1" [(ngModel)]="selectedOption" value="None" (change)="onOptionChange()">None
     </label>
   </div>

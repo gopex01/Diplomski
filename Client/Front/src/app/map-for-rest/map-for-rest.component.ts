@@ -34,7 +34,8 @@ export class MapForRestComponent implements OnInit{
     const routingControl=L.Routing.control({
       waypoints:[start,end],//pocetna i krajnja tacka
       routeWhileDragging:true,//omogucava da se ruta dinamicki azurira dok se prevlace tacke po mapi
-      show:false,
+      show:true,
+      collapsible:true
     }).addTo(this.map!);
 
     routingControl.on('routesfound',(e:any)=>{
